@@ -7,9 +7,10 @@
 class system {
 
 public:
-	
+
 	int registerBody(Body* body);
 	int registerInteraction(Interaction* interaction);
-	
-	void operator() ( const state_type &x , state_type &dxdt , const double t ) {};
+
+	void operator()(const state_type &x, state_type &dxdt, const double t) {
+	}
 };

@@ -1,11 +1,10 @@
-
 class Body {
 
-public:	
+public:
 	double mass;
-	
+
 	double x, y, z;
 	double vx, vy, vz;
 
-	Body();	
+	Body();
 };
