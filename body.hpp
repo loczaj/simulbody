@@ -1,3 +1,6 @@
+#ifndef BODY_HPP
+#define BODY_HPP
+
 class Body {
 
 public:
@@ -5,6 +8,6 @@ public:
 
 	double x, y, z;
 	double vx, vy, vz;
-
-	Body();
 };
+
+#endif // BODY_HPP

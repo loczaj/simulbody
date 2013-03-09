@@ -1,8 +1,4 @@
-#include <vector>
-
 #include "body.hpp"
-
-typedef std::vector<double> state_type;
 
 class Interaction {
 
@@ -17,16 +13,7 @@ public:
 
 	virtual void actuate(Body &accelerationOfEarth, Body &accelerationOfApple, const double t) = 0;
 
-	virtual double energy();
+	virtual double energy() = 0;
 
-	virtual ~Interaction();
-};
-
-class Gravity: public Interaction {
-
-public:
-
-	void atuate(Body &accelerationOfEarth, Body &accelerationOfApple, const double t);
-
-	double energy();
+	virtual ~Interaction() = 0;
 };

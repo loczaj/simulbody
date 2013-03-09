@@ -1,6 +1,5 @@
 #include <vector>
 
-#include "body.hpp"
 #include "phase.hpp"
 #include "interaction.hpp"
 
@@ -16,4 +15,5 @@ public:
 	int registerInteraction(Interaction* interaction);
 
 	void operator()(const Phase &x, Phase &dxdt, const double t);
+
 };
