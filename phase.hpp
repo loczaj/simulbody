@@ -22,7 +22,6 @@ public:
 
 // Only required for steppers with error control
 Phase operator/(const Phase &p1, const Phase &p2);
-Phase abs(const Phase &p);
 
 // Specialization of vector_space_reduce, only required for steppers with error control
 namespace boost {

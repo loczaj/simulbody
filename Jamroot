@@ -1,0 +1,14 @@
+exe lorenz
+    : lorenz_point.cpp
+    : <define>BOOST_ALL_NO_LIB=1
+    ;
+
+exe harmonic
+    : harmonic_oscillator.cpp
+    : <define>BOOST_ALL_NO_LIB=1
+    ;
+
+lib bohrbiter
+    : body.cpp phase.cpp interaction.cpp system.cpp
+    : <define>BOOST_ALL_NO_LIB=1
+    ;
