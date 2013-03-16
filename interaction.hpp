@@ -11,7 +11,7 @@ public:
 
 	void registerBodies(Body* earth, Body* apple);
 
-	virtual void actuate(Body &accelerationOfEarth, Body &accelerationOfApple, const double t) = 0;
+	virtual void actuate(const double t) = 0;
 
 	virtual double energy() = 0;
 

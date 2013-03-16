@@ -14,9 +14,14 @@ class Phase: boost::additive1<Phase,
 public:
 	Phase();
 
-	int registerBody(Body* body);
+	static void copyVelocityToPosition(const Phase& source, Phase& target);
+	static void copyForceToVelocity(const Phase& source, Phase& target);
 
-	Phase& operator+=(const Phase &p);
+	int registerBody(Body& body);
+	void clearForce() const;
+	void devideVelocityByMass();
+
+	Phase& operator+=(const Phase& p);
 	Phase& operator*=(const double a);
 };
 

@@ -11,9 +11,9 @@ class System {
 public:
 	System();
 
-	int registerBody(Body* body);
-	int registerInteraction(Interaction* interaction);
+	int registerBody(Body& body);
+	int registerInteraction(Interaction& interaction);
 
-	void operator()(const Phase &x, Phase &dxdt, const double t);
+	void derive(const Phase &x, Phase &dxdt, const double t);
 
 };

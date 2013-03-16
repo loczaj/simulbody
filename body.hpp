@@ -8,6 +8,13 @@ public:
 
 	double x, y, z;
 	double vx, vy, vz;
+	double Fx, Fy, Fz;
+
+	void clearForce();
+	void devideVelocityByMass();
+
+	static void copyVelocityToPosition(const Body& source, Body& target);
+	static void copyForceToVelocity(const Body& source, Body& target);
 
 	Body& operator +=(const Body& b);
 	Body& operator *=(const double a);
