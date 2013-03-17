@@ -21,7 +21,7 @@ void System::derive(const Phase& x, Phase& dxdt, const double t) {
 	x.clearForce();
 
 	for (std::vector<Interaction*>::size_type i = 0; i < interactions.size(); i++) {
-		interactions[i]->actuate(t);
+		interactions[i]->affect(t);
 	}
 
 	Phase::copyForceToVelocity(x, dxdt);

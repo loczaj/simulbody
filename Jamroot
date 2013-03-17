@@ -1,4 +1,4 @@
 lib bohrbiter
-    : body.cpp phase.cpp interaction.cpp system.cpp
+    : body.cpp phase.cpp interaction.cpp system.cpp interactions/coulomb.cpp
     : <define>BOOST_ALL_NO_LIB=1
     ;
