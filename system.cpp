@@ -15,6 +15,10 @@ int System::registerInteraction(Interaction* interaction) {
 	return interactions.size() - 1;
 }
 
+Phase* System::getPhase() {
+	return &phase;
+}
+
 void System::derive(const Phase& x, Phase& dxdt, const double t) {
 	Phase::copyVelocityToPosition(x, dxdt);
 

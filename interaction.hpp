@@ -1,3 +1,6 @@
+#ifndef INTERACTION_HPP
+#define INTERACTION_HPP
+
 #include "body.hpp"
 
 class Interaction {
@@ -28,11 +31,13 @@ protected:
 
 public:
 
-	virtual void registerBodies(Body* earth, Body* apple);
+	void registerBodies(Body* earth, Body* apple);
 
 	virtual void affect(const double t) = 0;
 
 	virtual double energy() = 0;
 
-	virtual ~Interaction() = 0;
+	virtual ~Interaction();
 };
+
+#endif // INTERACTION_HPP

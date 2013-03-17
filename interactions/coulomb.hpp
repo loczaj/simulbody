@@ -12,5 +12,5 @@ public:
 
 	virtual double energy();
 
-	virtual ~CoulombInteraction() = 0;
+	virtual ~CoulombInteraction();
 };

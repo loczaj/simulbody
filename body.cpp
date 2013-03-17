@@ -1,5 +1,20 @@
 #include "body.hpp"
 
+Body::Body(double mass, double x, double y, double z, double vx, double vy, double vz) {
+	this->mass = mass;
+
+	this->x = x;
+	this->y = y;
+	this->z = z;
+	this->vx = vx;
+	this->vy = vy;
+	this->vz = vz;
+
+	this->Fx = 0;
+	this->Fy = 0;
+	this->Fz = 0;
+}
+
 void Body::clearForce() {
 	Fx = 0;
 	Fy = 0;
@@ -52,4 +67,10 @@ void Body::copyForceToVelocity(const Body* source, Body* target) {
 	target->vx = source->Fx;
 	target->vy = source->Fy;
 	target->vz = source->Fz;
+}
+
+std::ostream& operator<<(std::ostream &out, const Body &body) {
+	out << body.x << "\t" << body.y << "\t" << body.z << "\t" << body.vx << "\t" << body.vy << "\t"
+			<< body.vz;
+	return out;
 }

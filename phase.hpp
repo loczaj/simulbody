@@ -1,3 +1,6 @@
+#ifndef PHASE_HPP
+#define PHASE_HPP
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -23,10 +26,14 @@ public:
 
 	static void copyVelocityToPosition(const Phase& source, Phase& target);
 	static void copyForceToVelocity(const Phase& source, Phase& target);
+
+private:
+	friend std::ostream& operator<<(std::ostream &out, const Phase &phase);
 };
 
 // Only required for steppers with error control
 Phase operator/(const Phase &p1, const Phase &p2);
+Phase abs(const Phase &p);
 
 // Specialization of vector_space_reduce, only required for steppers with error control
 namespace boost {
@@ -51,4 +58,6 @@ struct vector_space_reduce<Phase> {
 //]
 
 // Print phase
-std::ostream& operator<<(std::ostream &out, const Phase &p);
+std::ostream& operator<<(std::ostream &out, const Phase &phase);
+
+#endif // PHASE_HPP

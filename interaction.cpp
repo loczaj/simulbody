@@ -49,3 +49,6 @@ void Interaction::affectFxyzOnEarth() {
 	earth->Fy -= Fy;
 	earth->Fz -= Fz;
 }
+
+Interaction::~Interaction() {
+}

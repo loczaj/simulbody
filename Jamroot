@@ -1,4 +1,9 @@
-lib bohrbiter
+lib bb
     : body.cpp phase.cpp interaction.cpp system.cpp interactions/coulomb.cpp
+    : <define>BOOST_ALL_NO_LIB=1
+    ;
+
+exe test
+	: test/circulation.cpp .//bb
     : <define>BOOST_ALL_NO_LIB=1
     ;

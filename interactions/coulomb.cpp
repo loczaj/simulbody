@@ -22,3 +22,6 @@ double CoulombInteraction::energy() {
 	calculateRxyzR2R();
 	return -q1q2 / r;
 }
+
+CoulombInteraction::~CoulombInteraction() {
+}

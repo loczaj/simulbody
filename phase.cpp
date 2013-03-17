@@ -51,3 +51,11 @@ void Phase::copyForceToVelocity(const Phase& source, Phase& target) {
 		Body::copyForceToVelocity(const_cast<Body*>(source.bodies[i]), target.bodies[i]);
 	}
 }
+
+std::ostream& operator<<(std::ostream &out, const Phase &phase) {
+	for (std::vector<Body*>::size_type i = 0; i < phase.bodies.size() - 1; i++) {
+		out << *phase.bodies[i] << "\t";
+	}
+	out << *phase.bodies[phase.bodies.size() - 1] << std::endl;
+	return out;
+}
