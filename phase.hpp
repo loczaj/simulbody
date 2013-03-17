@@ -14,15 +14,15 @@ class Phase: boost::additive1<Phase,
 public:
 	Phase();
 
-	static void copyVelocityToPosition(const Phase& source, Phase& target);
-	static void copyForceToVelocity(const Phase& source, Phase& target);
-
-	int registerBody(Body& body);
+	int registerBody(Body* body);
 	void clearForce() const;
 	void devideVelocityByMass();
 
 	Phase& operator+=(const Phase& p);
 	Phase& operator*=(const double a);
+
+	static void copyVelocityToPosition(const Phase& source, Phase& target);
+	static void copyForceToVelocity(const Phase& source, Phase& target);
 };
 
 // Only required for steppers with error control

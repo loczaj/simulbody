@@ -4,17 +4,9 @@
 Phase::Phase() {
 }
 
-int Phase::registerBody(Body& body) {
-	bodies.push_back(&body);
+int Phase::registerBody(Body* body) {
+	bodies.push_back(body);
 	return bodies.size() - 1;
-}
-
-Phase& Phase::operator +=(const Phase& p) {
-	assert(bodies.size() == p.bodies.size());
-	for (std::vector<Body*>::size_type i = 0; i < bodies.size(); i++) {
-		*bodies[i] += *p.bodies[i];
-	}
-	return *this;
 }
 
 void Phase::clearForce() const {
@@ -29,6 +21,14 @@ void Phase::devideVelocityByMass() {
 	}
 }
 
+Phase& Phase::operator +=(const Phase& p) {
+	assert(bodies.size() == p.bodies.size());
+	for (std::vector<Body*>::size_type i = 0; i < bodies.size(); i++) {
+		*bodies[i] += *p.bodies[i];
+	}
+	return *this;
+}
+
 Phase& Phase::operator *=(const double a) {
 	for (std::vector<Body*>::size_type i = 0; i < bodies.size(); i++) {
 		*bodies[i] *= a;
@@ -36,16 +36,18 @@ Phase& Phase::operator *=(const double a) {
 	return *this;
 }
 
+// static member
 void Phase::copyVelocityToPosition(const Phase& source, Phase& target) {
 	assert(source.bodies.size() == target.bodies.size());
 	for (std::vector<Body*>::size_type i = 0; i < source.bodies.size(); i++) {
-		Body::copyVelocityToPosition(const_cast<Body&>(*source.bodies[i]), *target.bodies[i]);
+		Body::copyVelocityToPosition(const_cast<Body*>(source.bodies[i]), target.bodies[i]);
 	}
 }
 
+// static member
 void Phase::copyForceToVelocity(const Phase& source, Phase& target) {
 	assert(source.bodies.size() == target.bodies.size());
 	for (std::vector<Body*>::size_type i = 0; i < source.bodies.size(); i++) {
-		Body::copyForceToVelocity(const_cast<Body&>(*source.bodies[i]), *target.bodies[i]);
+		Body::copyForceToVelocity(const_cast<Body*>(source.bodies[i]), target.bodies[i]);
 	}
 }

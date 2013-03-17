@@ -6,12 +6,12 @@ System::System() {
 	phase = Phase();
 }
 
-int System::registerBody(Body& body) {
+int System::registerBody(Body* body) {
 	return phase.registerBody(body);
 }
 
-int System::registerInteraction(Interaction& interaction) {
-	interactions.push_back(&interaction);
+int System::registerInteraction(Interaction* interaction) {
+	interactions.push_back(interaction);
 	return interactions.size() - 1;
 }
 

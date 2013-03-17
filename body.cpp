@@ -6,19 +6,7 @@ void Body::clearForce() {
 	Fz = 0;
 }
 
-void Body::copyVelocityToPosition(const Body& source, Body& target) {
-	target.x = source.vx;
-	target.y = source.vy;
-	target.z = source.vz;
-}
-
-void Body::copyForceToVelocity(const Body& source, Body& target) {
-	target.vx = source.Fx;
-	target.vy = source.Fy;
-	target.vz = source.Fz;
-}
-
-void Body:: devideVelocityByMass() {
+void Body::devideVelocityByMass() {
 	vx /= mass;
 	vy /= mass;
 	vz /= mass;
@@ -50,4 +38,18 @@ Body& Body::operator *=(const double a) {
 	// Skip F. as it is not part of the phase
 
 	return *this;
+}
+
+// static member
+void Body::copyVelocityToPosition(const Body* source, Body* target) {
+	target->x = source->vx;
+	target->y = source->vy;
+	target->z = source->vz;
+}
+
+// static member
+void Body::copyForceToVelocity(const Body* source, Body* target) {
+	target->vx = source->Fx;
+	target->vy = source->Fy;
+	target->vz = source->Fz;
 }
