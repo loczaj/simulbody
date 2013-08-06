@@ -3,7 +3,7 @@ lib bb
     : <define>BOOST_ALL_NO_LIB=1
     ;
 
-exe test
+exe circulation
 	: test/circulation.cpp .//bb
     : <define>BOOST_ALL_NO_LIB=1
     ;
