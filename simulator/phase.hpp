@@ -18,14 +18,14 @@ public:
 	Phase();
 
 	int registerBody(Body* body);
-	void clearForce() const;
-	void devideVelocityByMass();
+	void clearForces() const;
+	void devideVelocitiesByMass();
 
 	Phase& operator+=(const Phase& p);
 	Phase& operator*=(const double a);
 
-	static void copyVelocityToPosition(const Phase& source, Phase& target);
-	static void copyForceToVelocity(const Phase& source, Phase& target);
+	static void copyVelocitiesToPositions(const Phase& source, Phase& target);
+	static void copyForcesToVelocities(const Phase& source, Phase& target);
 
 private:
 	friend std::ostream& operator<<(std::ostream &out, const Phase &phase);

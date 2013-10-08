@@ -10,6 +10,7 @@ class System {
 
 	Phase phase;
 	std::vector<Interaction*> interactions;
+// TODO Add fields
 
 public:
 	System();

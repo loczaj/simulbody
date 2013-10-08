@@ -1,15 +1,15 @@
 #include <math.h>
 #include "interaction.hpp"
 
-void Interaction::registerBodies(Body* earth, Body* apple) {
+void Interaction::registerBodies(Body* earth, Body* moon) {
 	this->earth = earth;
-	this->apple = apple;
+	this->moon = moon;
 }
 
 void Interaction::calculateRxyz() {
-	rx = apple->x - earth->x;
-	ry = apple->y - earth->y;
-	rz = apple->z - earth->z;
+	rx = moon->x - earth->x;
+	ry = moon->y - earth->y;
+	rz = moon->z - earth->z;
 }
 
 void Interaction::calculateRxyzR2() {
@@ -23,9 +23,9 @@ void Interaction::calculateRxyzR2R() {
 }
 
 void Interaction::calculateVxyz() {
-	vx = apple->vx - earth->vx;
-	vy = apple->vy - earth->vy;
-	vz = apple->vz - earth->vz;
+	vx = moon->vx - earth->vx;
+	vy = moon->vy - earth->vy;
+	vz = moon->vz - earth->vz;
 }
 
 void Interaction::calculateVxyzV2() {
@@ -38,13 +38,13 @@ void Interaction::calculateVxyzV2V() {
 	v = sqrt(v2);
 }
 
-void Interaction::affectFxyzOnApple() {
-	apple->Fx += Fx;
-	apple->Fy += Fy;
-	apple->Fz += Fz;
+void Interaction::applyFxyzOnMoon() {
+	moon->Fx += Fx;
+	moon->Fy += Fy;
+	moon->Fz += Fz;
 }
 
-void Interaction::affectFxyzOnEarth() {
+void Interaction::applyFxyzOnEarth() {
 	earth->Fx -= Fx;
 	earth->Fy -= Fy;
 	earth->Fz -= Fz;

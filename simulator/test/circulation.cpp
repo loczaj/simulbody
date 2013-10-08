@@ -20,14 +20,14 @@ using namespace boost::numeric::odeint;
 
 int main(int argc, char* atgv[]) {
 	Body* earth = new Body(2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	Body* apple = new Body(1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+	Body* moon = new Body(1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 
 	Interaction* gravity = new CoulombInteraction(-1.0);
-	gravity->registerBodies(earth, apple);
+	gravity->registerBodies(earth, moon);
 
 	bbsystem = new System();
 	bbsystem->registerBody(earth);
-	bbsystem->registerBody(apple);
+	bbsystem->registerBody(moon);
 	bbsystem->registerInteraction(gravity);
 
 	runge_kutta4<Phase, double, Phase, double, vector_space_algebra> stepper;

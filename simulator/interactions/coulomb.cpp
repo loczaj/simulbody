@@ -5,7 +5,7 @@ CoulombInteraction::CoulombInteraction(double q1q2) {
 	this->q1q2 = q1q2;
 }
 
-void CoulombInteraction::affect(const double t) {
+void CoulombInteraction::apply(const double t) {
 
 	calculateRxyzR2R();
 
@@ -14,8 +14,8 @@ void CoulombInteraction::affect(const double t) {
 	Fy = F * ry;
 	Fz = F * rz;
 
-	affectFxyzOnApple();
-	affectFxyzOnEarth();
+	applyFxyzOnMoon();
+	applyFxyzOnEarth();
 }
 
 double CoulombInteraction::energy() {

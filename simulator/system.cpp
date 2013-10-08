@@ -20,14 +20,14 @@ Phase* System::getPhase() {
 }
 
 void System::derive(const Phase& x, Phase& dxdt, const double t) {
-	Phase::copyVelocityToPosition(x, dxdt);
+	Phase::copyVelocitiesToPositions(x, dxdt);
 
-	x.clearForce();
+	x.clearForces();
 
 	for (std::vector<Interaction*>::size_type i = 0; i < interactions.size(); i++) {
-		interactions[i]->affect(t);
+		interactions[i]->apply(t);
 	}
 
-	Phase::copyForceToVelocity(x, dxdt);
-	dxdt.devideVelocityByMass();
+	Phase::copyForcesToVelocities(x, dxdt);
+	dxdt.devideVelocitiesByMass();
 }

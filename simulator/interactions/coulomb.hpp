@@ -8,7 +8,7 @@ private:
 public:
 	CoulombInteraction(double q1q2);
 
-	virtual void affect(const double t);
+	virtual void apply(const double t);
 
 	virtual double energy();
 

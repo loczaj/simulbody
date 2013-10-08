@@ -8,7 +8,7 @@ class Interaction {
 protected:
 
 	Body* earth;
-	Body* apple;
+	Body* moon;
 
 	// variables for calculation
 	double rx, ry, rz;
@@ -26,14 +26,14 @@ protected:
 	void calculateVxyzV2();
 	void calculateVxyzV2V();
 
-	void affectFxyzOnApple();
-	void affectFxyzOnEarth();
+	void applyFxyzOnMoon();
+	void applyFxyzOnEarth();
 
 public:
 
-	void registerBodies(Body* earth, Body* apple);
+	void registerBodies(Body* earth, Body* moon);
 
-	virtual void affect(const double t) = 0;
+	virtual void apply(const double t) = 0;
 
 	virtual double energy() = 0;
 
