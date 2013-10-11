@@ -3,7 +3,7 @@
 #include "system.hpp"
 
 System::System() {
-	phase = Phase();
+	phase = Phase(0);
 }
 
 int System::registerBody(Body* body) {
@@ -28,6 +28,7 @@ void System::derive(const Phase& x, Phase& dxdt, const double t) {
 		interactions[i]->apply(t);
 	}
 
+	x.devideForcesByMass();
+
 	Phase::copyForcesToVelocities(x, dxdt);
-	dxdt.devideVelocitiesByMass();
 }

@@ -10,18 +10,20 @@ public:
 
 	double x, y, z;
 	double vx, vy, vz;
-	double Fx, Fy, Fz;
+	mutable double Fx, Fy, Fz;
 
 	Body(double mass, double x, double y, double z, double vx, double vy, double vz);
 
-	void clearForce();
-	void devideVelocityByMass();
+	void clearForce() const;
+	void devideForceByMass() const;
 
 	Body& operator +=(const Body& b);
 	Body& operator *=(const double a);
 
 	static void copyVelocityToPosition(const Body* source, Body* target);
 	static void copyForceToVelocity(const Body* source, Body* target);
+
+	// TODO energy calculations
 };
 
 std::ostream& operator<<(std::ostream &out, const Body &body);

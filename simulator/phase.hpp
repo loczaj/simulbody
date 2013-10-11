@@ -16,10 +16,11 @@ class Phase: boost::additive1<Phase,
 
 public:
 	Phase();
+	Phase(int n);
 
 	int registerBody(Body* body);
 	void clearForces() const;
-	void devideVelocitiesByMass();
+	void devideForcesByMass() const;
 
 	Phase& operator+=(const Phase& p);
 	Phase& operator*=(const double a);

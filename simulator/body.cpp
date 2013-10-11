@@ -15,16 +15,16 @@ Body::Body(double mass, double x, double y, double z, double vx, double vy, doub
 	this->Fz = 0;
 }
 
-void Body::clearForce() {
+void Body::clearForce() const {
 	Fx = 0;
 	Fy = 0;
 	Fz = 0;
 }
 
-void Body::devideVelocityByMass() {
-	vx /= mass;
-	vy /= mass;
-	vz /= mass;
+void Body::devideForceByMass() const {
+	Fx /= mass;
+	Fy /= mass;
+	Fz /= mass;
 }
 
 Body& Body::operator +=(const Body& b) {
