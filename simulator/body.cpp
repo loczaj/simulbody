@@ -27,6 +27,10 @@ void Body::devideForceByMass() const {
 	Fz /= mass;
 }
 
+double Body::getKineticEnergy() const {
+	return 0.5 * mass * (vx * vx + vy * vy + vz * vz);
+}
+
 Body& Body::operator +=(const Body& b) {
 	x += b.x;
 	y += b.y;

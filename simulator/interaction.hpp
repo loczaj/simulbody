@@ -31,11 +31,11 @@ protected:
 
 public:
 
-	void registerBodies(Body* earth, Body* moon);
+	virtual void registerBodies(Body* earth, Body* moon);
 
 	virtual void apply(const double t) = 0;
 
-	virtual double energy() = 0;
+	virtual double getEnergy() = 0;
 
 	virtual ~Interaction();
 };

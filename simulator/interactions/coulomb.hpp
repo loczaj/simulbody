@@ -10,7 +10,7 @@ public:
 
 	virtual void apply(const double t);
 
-	virtual double energy();
+	virtual double getEnergy();
 
 	virtual ~CoulombInteraction();
 };

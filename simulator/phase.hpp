@@ -19,6 +19,7 @@ public:
 	Phase(int n);
 
 	int registerBody(Body* body);
+	std::vector<Body*> getBodies();
 	void clearForces() const;
 	void devideForcesByMass() const;
 

@@ -18,6 +18,7 @@ public:
 	int registerBody(Body* body);
 	int registerInteraction(Interaction* interaction);
 	Phase* getPhase();
+	double getEnergy();
 
 	void derive(const Phase &x, Phase &dxdt, const double t);
 

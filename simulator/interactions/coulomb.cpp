@@ -18,9 +18,9 @@ void CoulombInteraction::apply(const double t) {
 	applyFxyzOnEarth();
 }
 
-double CoulombInteraction::energy() {
+double CoulombInteraction::getEnergy() {
 	calculateRxyzR2R();
-	return -q1q2 / r;
+	return q1q2 / r;
 }
 
 CoulombInteraction::~CoulombInteraction() {

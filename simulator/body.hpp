@@ -16,14 +16,13 @@ public:
 
 	void clearForce() const;
 	void devideForceByMass() const;
+	double getKineticEnergy() const;
 
 	Body& operator +=(const Body& b);
 	Body& operator *=(const double a);
 
 	static void copyVelocityToPosition(const Body* source, Body* target);
 	static void copyForceToVelocity(const Body* source, Body* target);
-
-	// TODO energy calculations
 };
 
 std::ostream& operator<<(std::ostream &out, const Body &body);

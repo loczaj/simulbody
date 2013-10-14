@@ -20,6 +20,10 @@ int Phase::registerBody(Body* body) {
 	return bodies.size() - 1;
 }
 
+std::vector<Body*> Phase::getBodies() {
+	return bodies;
+}
+
 void Phase::clearForces() const {
 	for (std::vector<Body*>::size_type i = 0; i < bodies.size(); i++) {
 		bodies[i]->clearForce();
