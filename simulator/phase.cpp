@@ -4,9 +4,11 @@
 Phase::Phase() {
 	// FIXME proper constructor
 	// std::cout << "Phase" << std::endl;
-	bodies = *new std::vector<Body*>(2);
+	bodies = *new std::vector<Body*>(4);
 	bodies[0] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
 	bodies[1] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+	bodies[2] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+	bodies[3] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
 }
 
 Phase::Phase(int n) {
