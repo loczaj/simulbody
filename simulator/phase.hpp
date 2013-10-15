@@ -9,17 +9,20 @@
 
 #include "body.hpp"
 
-class Phase: boost::additive1<Phase,
-		boost::additive2<Phase, double, boost::multiplicative2<Phase, double> > > {
+class Phase: boost::additive1<Phase, boost::additive2<Phase, double, boost::multiplicative2<Phase, double> > > {
 
+private:
 	std::vector<Body*> bodies;
 
 public:
 	Phase();
-	Phase(int n);
+
+	int size() const;
+	void resize(int size);
 
 	int registerBody(Body* body);
 	std::vector<Body*> getBodies();
+
 	void clearForces() const;
 	void devideForcesByMass() const;
 
@@ -37,10 +40,38 @@ private:
 Phase operator/(const Phase &p1, const Phase &p2);
 Phase abs(const Phase &p);
 
-// Specialization of vector_space_reduce, only required for steppers with error control
+// Print phase
+std::ostream& operator<<(std::ostream &out, const Phase &phase);
+
+// Phase bindings
 namespace boost {
 namespace numeric {
 namespace odeint {
+
+// declare resizeability
+template<>
+struct is_resizeable<Phase> {
+	typedef boost::true_type type;
+	const static bool value = type::value;
+};
+
+// define how to check size
+template<>
+struct same_size_impl<Phase, Phase> {
+	static bool same_size(const Phase &v1, const Phase &v2) {
+		return v1.size() == v2.size();
+	}
+};
+
+// define how to resize
+template<>
+struct resize_impl<Phase, Phase> {
+	static void resize(Phase &v1, const Phase &v2) {
+		v1.resize(v2.size());
+	}
+};
+
+// Specialization of vector_space_reduce, only required for steppers with error control
 template<>
 struct vector_space_reduce<Phase> {
 	template<class Value, class Op>
@@ -54,12 +85,9 @@ struct vector_space_reduce<Phase> {
 		return init;
 	}
 };
-}
-}
-}
-//]
 
-// Print phase
-std::ostream& operator<<(std::ostream &out, const Phase &phase);
+}
+}
+}
 
 #endif // PHASE_HPP

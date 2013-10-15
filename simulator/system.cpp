@@ -3,7 +3,7 @@
 #include "system.hpp"
 
 System::System() {
-	phase = Phase(0);
+	phase = Phase();
 }
 
 int System::registerBody(Body* body) {

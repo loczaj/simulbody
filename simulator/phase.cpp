@@ -1,20 +1,20 @@
 #include "phase.hpp"
-#include "assert.h"
 
 Phase::Phase() {
-	// FIXME proper constructor
-	// std::cout << "Phase" << std::endl;
-	bodies = *new std::vector<Body*>(4);
-	bodies[0] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-	bodies[1] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-	bodies[2] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-	bodies[3] = new Body(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+	bodies = *new std::vector<Body*>(0);
 }
 
-Phase::Phase(int n) {
-	// FIXME proper constructor
-	// std::cout << "Phase " << n << std::endl;
-	bodies = *new std::vector<Body*>(n);
+int Phase::size() const {
+	return bodies.size();
+}
+
+void Phase::resize(int size) {
+	while (this->size() < size) {
+		registerBody(new Body());
+	}
+	while (this->size() > size) {
+		bodies.pop_back();
+	}
 }
 
 int Phase::registerBody(Body* body) {
@@ -39,7 +39,6 @@ void Phase::devideForcesByMass() const {
 }
 
 Phase& Phase::operator +=(const Phase& p) {
-	assert(bodies.size() == p.bodies.size());
 	for (std::vector<Body*>::size_type i = 0; i < bodies.size(); i++) {
 		*bodies[i] += *p.bodies[i];
 	}
@@ -55,9 +54,6 @@ Phase& Phase::operator *=(const double a) {
 
 // static member
 void Phase::copyVelocitiesToPositions(const Phase& source, Phase& target) {
-	//std::cout << source.bodies.size();
-	//std::cout << target.bodies.size() << std::endl;
-	assert(source.bodies.size() == target.bodies.size());
 	for (std::vector<Body*>::size_type i = 0; i < source.bodies.size(); i++) {
 		Body::copyVelocityToPosition(const_cast<Body*>(source.bodies[i]), target.bodies[i]);
 	}
@@ -65,7 +61,6 @@ void Phase::copyVelocitiesToPositions(const Phase& source, Phase& target) {
 
 // static member
 void Phase::copyForcesToVelocities(const Phase& source, Phase& target) {
-	assert(source.bodies.size() == target.bodies.size());
 	for (std::vector<Body*>::size_type i = 0; i < source.bodies.size(); i++) {
 		Body::copyForceToVelocity(const_cast<Body*>(source.bodies[i]), target.bodies[i]);
 	}
