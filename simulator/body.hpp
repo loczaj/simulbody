@@ -12,6 +12,7 @@ public:
 	double vx, vy, vz;
 	mutable double Fx, Fy, Fz;
 
+	Body();
 	Body(double mass, double x, double y, double z, double vx, double vy, double vz);
 
 	void clearForce() const;

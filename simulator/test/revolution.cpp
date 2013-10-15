@@ -65,4 +65,6 @@ int main(int argc, char* atgv[]) {
 
 	stream.close();
 	std::cout << "E=" << bbsystem->getEnergy() << std::endl;
+
+	return steps;
 }

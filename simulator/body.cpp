@@ -1,5 +1,9 @@
 #include "body.hpp"
 
+Body::Body() :
+		Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) {
+}
+
 Body::Body(double mass, double x, double y, double z, double vx, double vy, double vz) {
 	this->mass = mass;
 
