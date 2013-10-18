@@ -1,7 +1,7 @@
 #include <math.h>
 #include "interaction.hpp"
 
-void Interaction::registerBodies(Body* earth, Body* moon) {
+void Interaction::setBodies(Body* earth, Body* moon) {
 	this->earth = earth;
 	this->moon = moon;
 }

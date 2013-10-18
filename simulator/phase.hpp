@@ -20,7 +20,7 @@ public:
 	int size() const;
 	void resize(int size);
 
-	int registerBody(Body* body);
+	int addBody(Body* body);
 	std::vector<Body*> getBodies();
 
 	void clearForces() const;

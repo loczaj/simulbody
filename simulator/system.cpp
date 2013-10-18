@@ -6,11 +6,11 @@ System::System() {
 	phase = Phase();
 }
 
-int System::registerBody(Body* body) {
-	return phase.registerBody(body);
+int System::addBody(Body* body) {
+	return phase.addBody(body);
 }
 
-int System::registerInteraction(Interaction* interaction) {
+int System::addInteraction(Interaction* interaction) {
 	interactions.push_back(interaction);
 	return interactions.size() - 1;
 }
@@ -44,4 +44,14 @@ void System::derive(const Phase& x, Phase& dxdt, const double t) {
 	x.devideForcesByMass();
 
 	Phase::copyForcesToVelocities(x, dxdt);
+}
+
+System& System::operator<<(Body* body) {
+	this->addBody(body);
+	return *this;
+}
+
+System& System::operator<<(Interaction* interaction) {
+	this->addInteraction(interaction);
+	return *this;
 }

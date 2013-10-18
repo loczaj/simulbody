@@ -1,8 +1,9 @@
 #include <math.h>
 #include "coulomb.hpp"
 
-CoulombInteraction::CoulombInteraction(double q1q2) {
+CoulombInteraction::CoulombInteraction(double q1q2, Body* earth, Body* moon) {
 	this->q1q2 = q1q2;
+	this->setBodies(earth, moon);
 }
 
 void CoulombInteraction::apply(const double t) {

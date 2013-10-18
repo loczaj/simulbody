@@ -31,7 +31,7 @@ protected:
 
 public:
 
-	virtual void registerBodies(Body* earth, Body* moon);
+	virtual void setBodies(Body* earth, Body* moon);
 
 	virtual void apply(const double t) = 0;
 

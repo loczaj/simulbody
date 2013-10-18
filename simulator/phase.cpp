@@ -10,14 +10,14 @@ int Phase::size() const {
 
 void Phase::resize(int size) {
 	while (this->size() < size) {
-		registerBody(new Body());
+		addBody(new Body());
 	}
 	while (this->size() > size) {
 		bodies.pop_back();
 	}
 }
 
-int Phase::registerBody(Body* body) {
+int Phase::addBody(Body* body) {
 	bodies.push_back(body);
 	return bodies.size() - 1;
 }

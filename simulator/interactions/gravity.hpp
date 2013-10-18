@@ -7,9 +7,9 @@ private:
 	double gammaM1M2;
 
 public:
-	GravitationalInteraction(double gamma);
+	GravitationalInteraction(double gamma, Body* earth, Body* moon);
 
-	virtual void registerBodies(Body* earth, Body* moon);
+	virtual void setBodies(Body* earth, Body* moon);
 
 	virtual void apply(const double t);
 

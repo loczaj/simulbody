@@ -8,12 +8,12 @@
 #include "../system.hpp"
 #include "../interactions/gravity.hpp"
 
-System* bbsystem;
+System bbsystem;
 Body *earth, *moon, *iss, *apollo;
 std::ofstream stream;
 
 void rhs(const Phase &x, Phase &dxdt, const double t) {
-	bbsystem->derive(x, dxdt, t);
+	bbsystem.derive(x, dxdt, t);
 }
 
 struct write_state {
@@ -31,40 +31,25 @@ int main(int argc, char* atgv[]) {
 	moon = new Body(1.0, 1.0, 0.0, 0.0, 0.0, 2.0, 0.0);
 	apollo = new Body(0.001, 1.1, 0.0, 0.0, 0.0, 3.5, 0.0);
 
-	Interaction* gravityEM = new GravitationalInteraction(0.2);
-	Interaction* gravityEI = new GravitationalInteraction(0.2);
-	Interaction* gravityEA = new GravitationalInteraction(0.2);
-	Interaction* gravityMA = new GravitationalInteraction(0.2);
-	Interaction* gravityMI = new GravitationalInteraction(0.2);
-	Interaction* gravityIA = new GravitationalInteraction(0.2);
+	Interaction* gravityEM = new GravitationalInteraction(0.2, earth, moon);
+	Interaction* gravityEI = new GravitationalInteraction(0.2, earth, iss);
+	Interaction* gravityEA = new GravitationalInteraction(0.2, earth, apollo);
+	Interaction* gravityMA = new GravitationalInteraction(0.2, moon, apollo);
+	Interaction* gravityMI = new GravitationalInteraction(0.2, moon, iss);
+	Interaction* gravityIA = new GravitationalInteraction(0.2, iss, apollo);
 
-	gravityEM->registerBodies(earth, moon);
-	gravityEI->registerBodies(earth, iss);
-	gravityEA->registerBodies(earth, apollo);
-	gravityMA->registerBodies(moon, apollo);
-	gravityMI->registerBodies(moon, iss);
-	gravityIA->registerBodies(iss, apollo);
-
-	bbsystem = new System();
-	bbsystem->registerBody(earth);
-	bbsystem->registerBody(moon);
-	bbsystem->registerBody(iss);
-	bbsystem->registerBody(apollo);
-	bbsystem->registerInteraction(gravityEM);
-	bbsystem->registerInteraction(gravityEI);
-	bbsystem->registerInteraction(gravityEA);
-	bbsystem->registerInteraction(gravityMA);
-	bbsystem->registerInteraction(gravityMI);
-	bbsystem->registerInteraction(gravityIA);
+	bbsystem = System();
+	bbsystem << earth << iss << moon << apollo;
+	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
 	stream.open("orbits.csv", std::ofstream::out);
-	std::cout << "E=" << bbsystem->getEnergy() << std::endl;
+	std::cout << "E=" << bbsystem.getEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, vector_space_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, *bbsystem->getPhase(), 0.0, 3.0, 0.001, write_state());
+	int steps = integrate_const(stepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.001, write_state());
 
 	stream.close();
-	std::cout << "E=" << bbsystem->getEnergy() << std::endl;
+	std::cout << "E=" << bbsystem.getEnergy() << std::endl;
 
 	return steps;
 }

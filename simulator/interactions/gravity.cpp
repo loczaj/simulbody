@@ -1,13 +1,14 @@
 #include <math.h>
 #include "gravity.hpp"
 
-GravitationalInteraction::GravitationalInteraction(double gamma) {
+GravitationalInteraction::GravitationalInteraction(double gamma, Body* earth, Body* moon) {
 	this->gamma = gamma;
 	this->gammaM1M2 = 0.0;
+	this->setBodies(earth, moon);
 }
 
-void GravitationalInteraction::registerBodies(Body* earth, Body* moon) {
-	Interaction::registerBodies(earth, moon);
+void GravitationalInteraction::setBodies(Body* earth, Body* moon) {
+	Interaction::setBodies(earth, moon);
 	this->gammaM1M2 = gamma * earth->mass * moon->mass;
 }
 

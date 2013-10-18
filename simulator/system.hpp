@@ -15,13 +15,15 @@ class System {
 public:
 	System();
 
-	int registerBody(Body* body);
-	int registerInteraction(Interaction* interaction);
+	int addBody(Body* body);
+	int addInteraction(Interaction* interaction);
 	Phase* getPhase();
 	double getEnergy();
 
 	void derive(const Phase &x, Phase &dxdt, const double t);
 
+	System& operator<<(Body* body);
+	System& operator<<(Interaction* interaction);
 };
 
 #endif // SYSTEM_HPP
