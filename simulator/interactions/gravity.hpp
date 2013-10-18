@@ -9,11 +9,11 @@ private:
 public:
 	GravitationalInteraction(double gamma, Body* earth, Body* moon);
 
-	virtual void setBodies(Body* earth, Body* moon);
+	virtual void setBodies(Body* earth, Body* moon) override;
 
-	virtual void apply(const double t);
+	virtual void apply(const double t) override;
 
-	virtual double getEnergy();
+	virtual double getEnergy() override;
 
-	virtual ~GravitationalInteraction();
+	virtual ~GravitationalInteraction() override;
 };

@@ -8,9 +8,9 @@ private:
 public:
 	CoulombInteraction(double q1q2, Body* earth, Body* moon);
 
-	virtual void apply(const double t);
+	virtual void apply(const double t) override;
 
-	virtual double getEnergy();
+	virtual double getEnergy() override;
 
-	virtual ~CoulombInteraction();
+	virtual ~CoulombInteraction() override;
 };
