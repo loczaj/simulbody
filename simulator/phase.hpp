@@ -40,9 +40,6 @@ private:
 Phase operator/(const Phase &p1, const Phase &p2);
 Phase abs(const Phase &p);
 
-// Print phase
-std::ostream& operator<<(std::ostream &out, const Phase &phase);
-
 // Phase bindings
 namespace boost {
 namespace numeric {

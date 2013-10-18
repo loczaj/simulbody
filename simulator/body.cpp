@@ -76,9 +76,3 @@ void Body::copyForceToVelocity(const Body* source, Body* target) {
 	target->vy = source->Fy;
 	target->vz = source->Fz;
 }
-
-std::ostream& operator<<(std::ostream &out, const Body &body) {
-	out << body.x << "\t" << body.y << "\t" << body.z << "\t" << body.vx << "\t" << body.vy << "\t"
-			<< body.vz;
-	return out;
-}

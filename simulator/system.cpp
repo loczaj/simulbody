@@ -22,11 +22,11 @@ Phase* System::getPhase() {
 double System::getEnergy() {
 	double energy = 0;
 
-	for (std::vector<Body*>::size_type i = 0; i < phase.getBodies().size(); i++) {
-		energy += phase.getBodies()[i]->getKineticEnergy();
+	for (Body* body : phase.getBodies()) {
+		energy += body->getKineticEnergy();
 	}
-	for (std::vector<Interaction*>::size_type i = 0; i < interactions.size(); i++) {
-		energy += interactions[i]->getEnergy();
+	for (Interaction* interaction : interactions) {
+		energy += interaction->getEnergy();
 	}
 
 	return energy;
@@ -37,8 +37,8 @@ void System::derive(const Phase& x, Phase& dxdt, const double t) {
 
 	x.clearForces();
 
-	for (std::vector<Interaction*>::size_type i = 0; i < interactions.size(); i++) {
-		interactions[i]->apply(t);
+	for (Interaction* interaction : interactions) {
+		interaction->apply(t);
 	}
 
 	x.devideForcesByMass();

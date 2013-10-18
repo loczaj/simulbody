@@ -26,6 +26,4 @@ public:
 	static void copyForceToVelocity(const Body* source, Body* target);
 };
 
-std::ostream& operator<<(std::ostream &out, const Body &body);
-
 #endif // BODY_HPP
