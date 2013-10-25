@@ -46,7 +46,7 @@ int main(int argc, char* atgv[]) {
 	std::cout << "E=" << bbsystem.getEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, vector_space_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.001, write_state());
+	int steps = integrate_const(stepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.000001);
 
 	stream.close();
 	std::cout << "E=" << bbsystem.getEnergy() << std::endl;

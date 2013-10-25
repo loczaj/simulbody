@@ -16,6 +16,7 @@ private:
 
 public:
 	Phase();
+	Phase(int size);
 
 	int size() const;
 	void resize(int size);

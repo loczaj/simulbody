@@ -4,6 +4,11 @@ Phase::Phase() {
 	bodies = *new std::vector<Body*>(0);
 }
 
+Phase::Phase(int size)
+		: Phase() {
+	resize(size);
+}
+
 int Phase::size() const {
 	return bodies.size();
 }
