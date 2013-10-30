@@ -11,7 +11,7 @@ public:
 	mutable double Fx, Fy, Fz;
 
 	Body();
-	Body(double mass, double x, double y, double z, double vx, double vy, double vz);
+	Body(double mass, double x = 0, double y = 0, double z = 0, double vx = 0, double vy = 0, double vz = 0);
 
 	void clearForce() const;
 	void devideForceByMass() const;
