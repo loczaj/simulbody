@@ -1,9 +1,9 @@
 #include <fstream>
 
 #include "../body.hpp"
+#include "../interactions/gravity.hpp"
 #include "../phase.hpp"
 #include "../system.hpp"
-#include "../interactions/gravity.hpp"
 
 System bbsystem;
 Body *earth, *moon, *iss, *apollo;

@@ -1,6 +1,4 @@
-#include <boost/operators.hpp>
 #include <boost/numeric/odeint.hpp>
-
 #include <fstream>
 
 #include "../body.hpp"
@@ -43,13 +41,18 @@ int main(int argc, char* atgv[]) {
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
 	stream.open("orbits.csv", std::ofstream::out);
-	std::cout << "E=" << bbsystem.getEnergy() << std::endl;
+	std::cout << "E0=" << bbsystem.getEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, vector_space_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.000001);
+	int steps = integrate_const(stepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.001, write_state());
+
+//	runge_kutta_dopri5<Phase, double, Phase, double, vector_space_algebra> stepper;
+//	auto cstepper = make_controlled(1.0e-6, 1.0e-6, stepper);
+//	int steps = integrate_adaptive(cstepper, rhs, *bbsystem.getPhase(), 0.0, 3.0, 0.001, write_state());
 
 	stream.close();
-	std::cout << "E=" << bbsystem.getEnergy() << std::endl;
+	std::cout << "En=" << bbsystem.getEnergy() << std::endl;
+	std::cout << "n=" << steps << std::endl;
 
-	return steps;
+	return 0;
 }

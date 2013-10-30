@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "phase.hpp"
 #include "interaction.hpp"
+#include "phase.hpp"
 
 class System {
 
 	Phase phase;
+	// TODO Add fields
 	std::vector<Interaction*> interactions;
-// TODO Add fields
 
 public:
 	System();

@@ -1,6 +1,5 @@
-#include <boost/numeric/odeint.hpp>
-
 #include "system.hpp"
+#include "body.hpp"
 
 System::System() {
 	phase = Phase();

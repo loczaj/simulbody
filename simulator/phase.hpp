@@ -1,9 +1,7 @@
 #ifndef PHASE_HPP
 #define PHASE_HPP
 
-#include <iostream>
 #include <vector>
-#include <cmath>
 #include <boost/operators.hpp>
 #include <boost/numeric/odeint.hpp>
 
@@ -32,9 +30,6 @@ public:
 
 	static void copyVelocitiesToPositions(const Phase& source, Phase& target);
 	static void copyForcesToVelocities(const Phase& source, Phase& target);
-
-private:
-	friend std::ostream& operator<<(std::ostream &out, const Phase &phase);
 };
 
 // Only required for steppers with error control

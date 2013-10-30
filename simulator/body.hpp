@@ -1,8 +1,6 @@
 #ifndef BODY_HPP
 #define BODY_HPP
 
-#include <ostream>
-
 class Body {
 
 public:

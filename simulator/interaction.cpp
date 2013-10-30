@@ -1,4 +1,5 @@
 #include <math.h>
+
 #include "interaction.hpp"
 
 void Interaction::setBodies(Body* earth, Body* moon) {
