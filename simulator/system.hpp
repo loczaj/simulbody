@@ -18,16 +18,16 @@ public:
 
 	Phase phase;
 
-	size_t createBody(double mass);
-	size_t createBody(double mass, vector3D position, vector3D velocity);
+	sizeT createBody(double mass);
+	sizeT createBody(double mass, vector3D position, vector3D velocity);
 
-	double getBodyMass(size_t body) const;
-	vector3D getBodyPosition(size_t body) const;
-	vector3D getBodyVelocity(size_t body) const;
+	double getBodyMass(sizeT body) const;
+	vector3D getBodyPosition(sizeT body) const;
+	vector3D getBodyVelocity(sizeT body) const;
 
-	void setBodyMass(size_t body, double mass);
-	void setBodyPosition(size_t body, vector3D position);
-	void setBodyVelocity(size_t body, vector3D velocity);
+	void setBodyMass(sizeT body, double mass);
+	void setBodyPosition(sizeT body, vector3D position);
+	void setBodyVelocity(sizeT body, vector3D velocity);
 
 	void addInteraction(Interaction *interaction);
 

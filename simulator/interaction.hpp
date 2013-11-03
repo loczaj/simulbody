@@ -1,16 +1,14 @@
 #ifndef INTERACTION_HPP
 #define INTERACTION_HPP
 
-#include <stddef.h>
-
-class Phase;
+#include "phase.hpp"
 
 class Interaction {
 
 private:
 
-	size_t earth;
-	size_t moon;
+	sizeT earth;
+	sizeT moon;
 
 protected:
 
@@ -35,7 +33,7 @@ protected:
 
 public:
 
-	virtual void setBodies(size_t earth, size_t moon);
+	virtual void setBodies(sizeT earth, sizeT moon);
 
 	virtual void apply(const Phase &phase, const double t) = 0;
 

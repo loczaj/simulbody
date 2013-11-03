@@ -1,9 +1,10 @@
 #ifndef PHASE_HPP
 #define PHASE_HPP
 
-#include <cstddef>
 #include <vector>
 #include <boost/numeric/odeint.hpp>
+
+typedef std::vector<double>::size_type sizeT;
 
 struct vector3D {
 	double x, y, z;
@@ -16,24 +17,24 @@ class Phase: public std::vector<double> {
 
 private:
 
-	size_t length;
+	sizeT length;
 	mutable std::vector<double> forces;
 
 public:
 
 	Phase();
-	void resize(size_t size);
+	void resize(sizeT size);
 
-	size_t createBody();
+	sizeT createBody();
 
-	vector3D getBodyPosition(size_t body) const;
-	vector3D getBodyVelocity(size_t body) const;
+	vector3D getBodyPosition(sizeT body) const;
+	vector3D getBodyVelocity(sizeT body) const;
 
-	void setBodyPosition(size_t body, vector3D position);
-	void setBodyVelocity(size_t body, vector3D velocity);
+	void setBodyPosition(sizeT body, vector3D position);
+	void setBodyVelocity(sizeT body, vector3D velocity);
 
 	void clearForces() const;
-	void addForceOnBody(size_t body, vector3D force) const;
+	void addForceOnBody(sizeT body, vector3D force) const;
 
 	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
 	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);

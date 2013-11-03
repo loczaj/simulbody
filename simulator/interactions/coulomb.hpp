@@ -6,7 +6,7 @@ private:
 	double q1q2;
 
 public:
-	CoulombInteraction(double q1q2, size_t earth, size_t moon);
+	CoulombInteraction(double q1q2, sizeT earth, sizeT moon);
 
 	virtual void apply(const Phase &phase, const double t) override;
 

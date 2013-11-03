@@ -3,8 +3,8 @@
 
 #include "system.hpp"
 
-size_t System::createBody(double mass) {
-	size_t body = phase.createBody();
+sizeT System::createBody(double mass) {
+	sizeT body = phase.createBody();
 
 	masses.resize(body + 1);
 	masses[body] = mass;
@@ -12,8 +12,8 @@ size_t System::createBody(double mass) {
 	return body;
 }
 
-size_t System::createBody(double mass, vector3D position, vector3D velocity) {
-	size_t body = createBody(mass);
+sizeT System::createBody(double mass, vector3D position, vector3D velocity) {
+	sizeT body = createBody(mass);
 
 	setBodyPosition(body, position);
 	setBodyVelocity(body, velocity);
@@ -21,29 +21,29 @@ size_t System::createBody(double mass, vector3D position, vector3D velocity) {
 	return body;
 }
 
-double System::getBodyMass(size_t body) const {
+double System::getBodyMass(sizeT body) const {
 	assert(body < masses.size());
 	return masses[body];
 }
 
-vector3D System::getBodyPosition(size_t body) const {
+vector3D System::getBodyPosition(sizeT body) const {
 	return phase.getBodyPosition(body);
 }
 
-vector3D System::getBodyVelocity(size_t body) const {
+vector3D System::getBodyVelocity(sizeT body) const {
 	return phase.getBodyVelocity(body);
 }
 
-void System::setBodyMass(size_t body, double mass) {
+void System::setBodyMass(sizeT body, double mass) {
 	assert(body < masses.size());
 	masses[body] = mass;
 }
 
-void System::setBodyPosition(size_t body, vector3D position) {
+void System::setBodyPosition(sizeT body, vector3D position) {
 	phase.setBodyPosition(body, position);
 }
 
-void System::setBodyVelocity(size_t body, vector3D velocity) {
+void System::setBodyVelocity(sizeT body, vector3D velocity) {
 	phase.setBodyVelocity(body, velocity);
 }
 

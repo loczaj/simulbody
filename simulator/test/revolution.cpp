@@ -5,7 +5,7 @@
 #include "../interactions/gravity.hpp"
 
 System bbsystem;
-size_t earth, iss, moon, apollo;
+sizeT earth, iss, moon, apollo;
 std::ofstream stream;
 
 void rhs(const Phase &x, Phase &dxdt, const double t) {

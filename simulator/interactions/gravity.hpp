@@ -6,7 +6,7 @@ private:
 	double gammaM1M2;
 
 public:
-	GravitationalInteraction(double gammaM1M2, size_t earth, size_t moon);
+	GravitationalInteraction(double gammaM1M2, sizeT earth, sizeT moon);
 
 	virtual void apply(const Phase &phase, const double t) override;
 

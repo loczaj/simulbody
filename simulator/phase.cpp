@@ -13,7 +13,7 @@ Phase::Phase() {
 	length = 0;
 }
 
-void Phase::resize(size_t size) {
+void Phase::resize(sizeT size) {
 	assert(size % 6 == 0);
 	length = size / 6;
 
@@ -21,7 +21,7 @@ void Phase::resize(size_t size) {
 	forces.resize(length * 3);
 }
 
-size_t Phase::createBody() {
+sizeT Phase::createBody() {
 	assert(size() % 6 == 0);
 	int id = length++;
 
@@ -31,17 +31,17 @@ size_t Phase::createBody() {
 	return id;
 }
 
-vector3D Phase::getBodyPosition(size_t body) const {
+vector3D Phase::getBodyPosition(sizeT body) const {
 	assert(body < length);
 	return vector3D(at(6 * body + pos_X), at(6 * body + pos_Y), at(6 * body + pos_Z));
 }
 
-vector3D Phase::getBodyVelocity(size_t body) const {
+vector3D Phase::getBodyVelocity(sizeT body) const {
 	assert(body < length);
 	return vector3D(at(6 * body + pos_Vx), at(6 * body + pos_Vy), at(6 * body + pos_Vz));
 }
 
-void Phase::setBodyPosition(size_t body, vector3D position) {
+void Phase::setBodyPosition(sizeT body, vector3D position) {
 	assert(body < length);
 
 	at(6 * body + pos_X) = position.x;
@@ -49,7 +49,7 @@ void Phase::setBodyPosition(size_t body, vector3D position) {
 	at(6 * body + pos_Z) = position.y;
 }
 
-void Phase::setBodyVelocity(size_t body, vector3D velocity) {
+void Phase::setBodyVelocity(sizeT body, vector3D velocity) {
 	assert(body < length);
 
 	at(6 * body + pos_Vx) = velocity.x;
@@ -61,7 +61,7 @@ void Phase::clearForces() const {
 	std::fill(forces.begin(), forces.end(), 0.0);
 }
 
-void Phase::addForceOnBody(size_t body, vector3D force) const {
+void Phase::addForceOnBody(sizeT body, vector3D force) const {
 	assert(body < length);
 
 	forces[3 * body + pos_X] += force.x;
@@ -71,7 +71,7 @@ void Phase::addForceOnBody(size_t body, vector3D force) const {
 
 // static
 void Phase::copyVelocitiesToPositions(const Phase &x, Phase &dxdt) {
-	for (size_t body = 0; body < x.length; body++) {
+	for (sizeT body = 0; body < x.length; body++) {
 		dxdt[6 * body + pos_X] = x[6 * body + pos_Vx];
 		dxdt[6 * body + pos_Y] = x[6 * body + pos_Vy];
 		dxdt[6 * body + pos_Z] = x[6 * body + pos_Vz];
@@ -80,7 +80,7 @@ void Phase::copyVelocitiesToPositions(const Phase &x, Phase &dxdt) {
 
 // static
 void Phase::copyForcesToVelocities(const Phase &x, Phase &dxdt) {
-	for (size_t body = 0; body < x.length; body++) {
+	for (sizeT body = 0; body < x.length; body++) {
 		dxdt[6 * body + pos_Vx] = x.forces[3 * body + pos_X];
 		dxdt[6 * body + pos_Vy] = x.forces[3 * body + pos_Y];
 		dxdt[6 * body + pos_Vz] = x.forces[3 * body + pos_Z];
@@ -89,7 +89,7 @@ void Phase::copyForcesToVelocities(const Phase &x, Phase &dxdt) {
 
 // static
 void Phase::devideForcesByMass(const Phase &x, const vector<double> &masses) {
-	for (size_t body = 0; body < x.length; body++) {
+	for (sizeT body = 0; body < x.length; body++) {
 		x.forces[3 * body + pos_X] /= masses[body];
 		x.forces[3 * body + pos_Y] /= masses[body];
 		x.forces[3 * body + pos_Z] /= masses[body];

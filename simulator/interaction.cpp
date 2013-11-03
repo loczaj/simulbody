@@ -1,9 +1,8 @@
 #include <math.h>
 
 #include "interaction.hpp"
-#include "phase.hpp"
 
-void Interaction::setBodies(size_t earth, size_t moon) {
+void Interaction::setBodies(sizeT earth, sizeT moon) {
 	this->earth = earth;
 	this->moon = moon;
 }
