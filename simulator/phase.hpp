@@ -15,23 +15,15 @@ struct vector3D {
 
 class Phase: public std::vector<double> {
 
+	friend class System;
+	friend class Interaction;
+
 private:
 
 	sizeT length;
 	mutable std::vector<double> forces;
 
-public:
-
-	Phase();
-	void resize(sizeT size);
-
 	sizeT createBody();
-
-	vector3D getBodyPosition(sizeT body) const;
-	vector3D getBodyVelocity(sizeT body) const;
-
-	void setBodyPosition(sizeT body, vector3D position);
-	void setBodyVelocity(sizeT body, vector3D velocity);
 
 	void clearForces() const;
 	void addForceOnBody(sizeT body, vector3D force) const;
@@ -39,6 +31,18 @@ public:
 	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
 	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);
 	static void devideForcesByMass(const Phase &x, const vector<double> &masses);
+
+public:
+
+	Phase();
+	void resize(sizeT size);
+
+	vector3D getBodyPosition(sizeT body) const;
+	vector3D getBodyVelocity(sizeT body) const;
+
+	void setBodyPosition(sizeT body, vector3D position);
+	void setBodyVelocity(sizeT body, vector3D velocity);
+
 };
 
 // Phase bindings
