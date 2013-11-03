@@ -1,32 +1,26 @@
 #include <math.h>
 #include "gravity.hpp"
 
-GravitationalInteraction::GravitationalInteraction(double gamma, Body* earth, Body* moon) {
-	this->gamma = gamma;
-	this->gammaM1M2 = 0.0;
+GravitationalInteraction::GravitationalInteraction(double gammaM1M2, size_t earth, size_t moon) {
+	this->gammaM1M2 = gammaM1M2;
 	this->setBodies(earth, moon);
 }
 
-void GravitationalInteraction::setBodies(Body* earth, Body* moon) {
-	Interaction::setBodies(earth, moon);
-	this->gammaM1M2 = gamma * earth->mass * moon->mass;
-}
+void GravitationalInteraction::apply(const Phase &phase, const double t) {
 
-void GravitationalInteraction::apply(const double t) {
-
-	calculateRxyzR2R();
+	calculateRxyzR2R(phase);
 
 	F = -gammaM1M2 / pow(r, 3);
 	Fx = F * rx;
 	Fy = F * ry;
 	Fz = F * rz;
 
-	applyFxyzOnMoon();
-	applyFxyzOnEarth();
+	applyFxyzOnMoon(phase);
+	applyFxyzOnEarth(phase);
 }
 
-double GravitationalInteraction::getEnergy() {
-	calculateRxyzR2R();
+double GravitationalInteraction::getEnergy(const Phase &phase) {
+	calculateRxyzR2R(phase);
 	return -gammaM1M2 / r;
 }
 

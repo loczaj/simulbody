@@ -1,14 +1,18 @@
 #ifndef INTERACTION_HPP
 #define INTERACTION_HPP
 
-#include "body.hpp"
+#include <stddef.h>
+
+class Phase;
 
 class Interaction {
 
-protected:
+private:
 
-	Body* earth;
-	Body* moon;
+	size_t earth;
+	size_t moon;
+
+protected:
 
 	// variables for calculation
 	double rx, ry, rz;
@@ -19,23 +23,23 @@ protected:
 	double F;
 
 	// methods for calculation
-	void calculateRxyz();
-	void calculateRxyzR2();
-	void calculateRxyzR2R();
-	void calculateVxyz();
-	void calculateVxyzV2();
-	void calculateVxyzV2V();
+	void calculateRxyz(const Phase &phase);
+	void calculateRxyzR2(const Phase &phase);
+	void calculateRxyzR2R(const Phase &phase);
+	void calculateVxyz(const Phase &phase);
+	void calculateVxyzV2(const Phase &phase);
+	void calculateVxyzV2V(const Phase &phase);
 
-	void applyFxyzOnMoon();
-	void applyFxyzOnEarth();
+	void applyFxyzOnMoon(const Phase &phase);
+	void applyFxyzOnEarth(const Phase &phase);
 
 public:
 
-	virtual void setBodies(Body* earth, Body* moon);
+	virtual void setBodies(size_t earth, size_t moon);
 
-	virtual void apply(const double t) = 0;
+	virtual void apply(const Phase &phase, const double t) = 0;
 
-	virtual double getEnergy() = 0;
+	virtual double getEnergy(const Phase &phase) = 0;
 
 	virtual ~Interaction();
 };

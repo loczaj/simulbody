@@ -1,54 +1,61 @@
 #ifndef PHASE_HPP
 #define PHASE_HPP
 
+#include <cstddef>
 #include <vector>
-#include <boost/operators.hpp>
 #include <boost/numeric/odeint.hpp>
 
-#include "body.hpp"
-
-class Phase: boost::additive1<Phase, boost::additive2<Phase, double, boost::multiplicative2<Phase, double> > > {
-
-private:
-	std::vector<Body*> bodies;
-
-public:
-	Phase();
-	Phase(int size);
-
-	int size() const;
-	void resize(int size);
-
-	int addBody(Body* body);
-	std::vector<Body*> getBodies();
-
-	void clearForces() const;
-	void devideForcesByMass() const;
-
-	Phase& operator+=(const Phase& p);
-	Phase& operator*=(const double a);
-
-	static void copyVelocitiesToPositions(const Phase& source, Phase& target);
-	static void copyForcesToVelocities(const Phase& source, Phase& target);
+struct vector3D {
+	double x, y, z;
+	vector3D(double a, double b, double c)
+			: x(a), y(b), z(c) {
+	}
 };
 
-// Only required for steppers with error control
-Phase operator/(const Phase &p1, const Phase &p2);
-Phase abs(const Phase &p);
+class Phase: public std::vector<double> {
+
+private:
+
+	size_t length;
+	std::vector<double> masses;
+	mutable std::vector<double> forces;
+
+public:
+
+	void setSize(const Phase &ref);
+
+	size_t createBody(double mass);
+	size_t createBody(double mass, vector3D position, vector3D velocity);
+
+	double getBodyMass(size_t body) const;
+	vector3D getBodyPosition(size_t body) const;
+	vector3D getBodyVelocity(size_t body) const;
+
+	void setBodyMass(size_t body, double mass);
+	void setBodyPosition(size_t body, vector3D position);
+	void setBodyVelocity(size_t body, vector3D velocity);
+
+	void clearForces() const;
+	void addForceOnBody(size_t body, vector3D force) const;
+
+	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
+	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);
+	static void devideForcesByMass(const Phase &x);
+};
 
 // Phase bindings
 namespace boost {
 namespace numeric {
 namespace odeint {
 
-// declare resizeability
+// Declare resizeability
 template<>
 struct is_resizeable<Phase> {
 	typedef boost::true_type type;
 	const static bool value = type::value;
 };
 
-// define how to check size
+// Define how to check size
 template<>
 struct same_size_impl<Phase, Phase> {
 	static bool same_size(const Phase &v1, const Phase &v2) {
@@ -56,31 +63,15 @@ struct same_size_impl<Phase, Phase> {
 	}
 };
 
-// define how to resize
+// Define how to resize
 template<>
 struct resize_impl<Phase, Phase> {
 	static void resize(Phase &v1, const Phase &v2) {
-		v1.resize(v2.size());
+		v1.setSize(v2);
 	}
 };
-
-// Specialization of vector_space_reduce, only required for steppers with error control
-template<>
-struct vector_space_reduce<Phase> {
-	template<class Value, class Op>
-	Value operator()(const Phase &p, Op op, Value init) {
-		//init = op( init , p.x );
-		//std::cout << init << " ";
-		//init = op( init , p.y );
-		//std::cout << init << " ";
-		//init = op( init , p.z );
-		//std::cout << init << std::endl;
-		return init;
-	}
-};
-
 }
 }
 }
 
-#endif // PHASE_HPP
+#endif /* PHASE_HPP */

@@ -3,17 +3,14 @@
 class GravitationalInteraction: public Interaction {
 
 private:
-	double gamma;
 	double gammaM1M2;
 
 public:
-	GravitationalInteraction(double gamma, Body* earth, Body* moon);
+	GravitationalInteraction(double gammaM1M2, size_t earth, size_t moon);
 
-	virtual void setBodies(Body* earth, Body* moon) override;
+	virtual void apply(const Phase &phase, const double t) override;
 
-	virtual void apply(const double t) override;
-
-	virtual double getEnergy() override;
+	virtual double getEnergy(const Phase &phase) override;
 
 	virtual ~GravitationalInteraction() override;
 };

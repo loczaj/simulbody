@@ -22,10 +22,8 @@ public:
 	void addStopCondition();
 	void addPlotter();
 
-	int simulate(double startTime, double deltaTime, int iterations);
 	int simulate(double startTime, double endTime, double deltaTime);
-	int simulateControlled(double startTime, double endTime, double deltaTime, double absoluteError,
-			double relativeError);
+	int simulateControlled(double startTime, double endTime, double deltaTime, double tolerance);
 
 };
 

@@ -8,22 +8,22 @@
 
 class System {
 
-	Phase phase;
-	// TODO Add fields
+private:
+
 	std::vector<Interaction*> interactions;
+	// TODO Add fields
 
 public:
-	System();
 
-	int addBody(Body* body);
-	int addInteraction(Interaction* interaction);
-	Phase* getPhase();
+	Phase phase;
+
+	void addInteraction(Interaction *interaction);
+
 	double getEnergy();
 
-	void derive(const Phase &x, Phase &dxdt, const double t);
+	void derive(const Phase &x, Phase &dxdt, const double t) const;
 
-	System& operator<<(Body* body);
-	System& operator<<(Interaction* interaction);
+	System& operator<<(Interaction *interaction);
 };
 
 #endif // SYSTEM_HPP
