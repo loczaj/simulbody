@@ -26,11 +26,11 @@ private:
 	sizeT createBody();
 
 	void clearForces() const;
-	void addForceOnBody(sizeT body, vector3D force) const;
+	void addForceOnBody(sizeT body, const vector3D &force) const;
 
 	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
 	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);
-	static void devideForcesByMass(const Phase &x, const vector<double> &masses);
+	static void devideForcesByMass(const Phase &x, const std::vector<double> &masses);
 
 public:
 
@@ -40,8 +40,8 @@ public:
 	vector3D getBodyPosition(sizeT body) const;
 	vector3D getBodyVelocity(sizeT body) const;
 
-	void setBodyPosition(sizeT body, vector3D position);
-	void setBodyVelocity(sizeT body, vector3D velocity);
+	void setBodyPosition(sizeT body, const vector3D position);
+	void setBodyVelocity(sizeT body, const vector3D velocity);
 
 };
 
