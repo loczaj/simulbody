@@ -20,7 +20,7 @@ class Phase: public std::vector<double> {
 
 private:
 
-	sizeT length;
+	sizeT numberOfBodies;
 	mutable std::vector<double> forces;
 
 	sizeT createBody();
