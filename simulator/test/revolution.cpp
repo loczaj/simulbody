@@ -29,10 +29,10 @@ using namespace boost::numeric::odeint;
 int main(int argc, char* atgv[]) {
 	bbsystem = System();
 
-	earth = bbsystem.phase.createBody(5.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
-	moon = bbsystem.phase.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 2.0, 0.0));
-	iss = bbsystem.phase.createBody(0.001, vector3D(0.2, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
-	apollo = bbsystem.phase.createBody(0.001, vector3D(1.1, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
+	earth = bbsystem.createBody(5.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
+	moon = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 2.0, 0.0));
+	iss = bbsystem.createBody(0.001, vector3D(0.2, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
+	apollo = bbsystem.createBody(0.001, vector3D(1.1, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
 
 	Interaction* gravityEM = new GravitationalInteraction(5, earth, moon);
 	Interaction* gravityEI = new GravitationalInteraction(0.005, earth, iss);

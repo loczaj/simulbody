@@ -17,21 +17,18 @@ class Phase: public std::vector<double> {
 private:
 
 	size_t length;
-	std::vector<double> masses;
 	mutable std::vector<double> forces;
 
 public:
 
-	void setSize(const Phase &ref);
+	Phase();
+	void resize(size_t size);
 
-	size_t createBody(double mass);
-	size_t createBody(double mass, vector3D position, vector3D velocity);
+	size_t createBody();
 
-	double getBodyMass(size_t body) const;
 	vector3D getBodyPosition(size_t body) const;
 	vector3D getBodyVelocity(size_t body) const;
 
-	void setBodyMass(size_t body, double mass);
 	void setBodyPosition(size_t body, vector3D position);
 	void setBodyVelocity(size_t body, vector3D velocity);
 
@@ -40,7 +37,7 @@ public:
 
 	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
 	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);
-	static void devideForcesByMass(const Phase &x);
+	static void devideForcesByMass(const Phase &x, const vector<double> &masses);
 };
 
 // Phase bindings
@@ -67,7 +64,7 @@ struct same_size_impl<Phase, Phase> {
 template<>
 struct resize_impl<Phase, Phase> {
 	static void resize(Phase &v1, const Phase &v2) {
-		v1.setSize(v2);
+		v1.resize(v2.size());
 	}
 };
 }

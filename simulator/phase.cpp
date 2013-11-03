@@ -9,38 +9,26 @@
 #define pos_Vy 4
 #define pos_Vz 5
 
-void Phase::setSize(const Phase &ref) {
-	std::vector<double>::resize(ref.size());
-
-	length = ref.length;
-	forces.resize(ref.forces.size());
-	masses = ref.masses;
+Phase::Phase() {
+	length = 0;
 }
 
-size_t Phase::createBody(double mass) {
+void Phase::resize(size_t size) {
+	assert(size % 6 == 0);
+	length = size / 6;
+
+	std::vector<double>::resize(size);
+	forces.resize(length * 3);
+}
+
+size_t Phase::createBody() {
 	assert(size() % 6 == 0);
-
 	int id = length++;
-	std::vector<double>::resize(6 * (id + 1));
 
+	std::vector<double>::resize(6 * (id + 1));
 	forces.resize(3 * (id + 1));
 
-	masses.resize(id + 1);
-	masses[id] = mass;
-
 	return id;
-}
-
-size_t Phase::createBody(double mass, vector3D position, vector3D velocity) {
-	int body = createBody(mass);
-	setBodyPosition(body, position);
-	setBodyVelocity(body, velocity);
-	return body;
-}
-
-double Phase::getBodyMass(size_t body) const {
-	assert(body < masses.size());
-	return masses[body];
 }
 
 vector3D Phase::getBodyPosition(size_t body) const {
@@ -51,11 +39,6 @@ vector3D Phase::getBodyPosition(size_t body) const {
 vector3D Phase::getBodyVelocity(size_t body) const {
 	assert(body < length);
 	return vector3D(at(6 * body + pos_Vx), at(6 * body + pos_Vy), at(6 * body + pos_Vz));
-}
-
-void Phase::setBodyMass(size_t body, double mass) {
-	assert(body < masses.size());
-	masses[body] = mass;
 }
 
 void Phase::setBodyPosition(size_t body, vector3D position) {
@@ -105,10 +88,10 @@ void Phase::copyForcesToVelocities(const Phase &x, Phase &dxdt) {
 }
 
 // static
-void Phase::devideForcesByMass(const Phase &x) {
+void Phase::devideForcesByMass(const Phase &x, const vector<double> &masses) {
 	for (size_t body = 0; body < x.length; body++) {
-		x.forces[3 * body + pos_X] /= x.masses[body];
-		x.forces[3 * body + pos_Y] /= x.masses[body];
-		x.forces[3 * body + pos_Z] /= x.masses[body];
+		x.forces[3 * body + pos_X] /= masses[body];
+		x.forces[3 * body + pos_Y] /= masses[body];
+		x.forces[3 * body + pos_Z] /= masses[body];
 	}
 }
