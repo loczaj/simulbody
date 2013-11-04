@@ -1,6 +1,8 @@
 #include <math.h>
 #include "gravity.hpp"
 
+static double factor;
+
 GravitationalInteraction::GravitationalInteraction(double gammaM1M2, sizeT earth, sizeT moon) {
 	this->gammaM1M2 = gammaM1M2;
 	this->setBodies(earth, moon);
@@ -8,20 +10,18 @@ GravitationalInteraction::GravitationalInteraction(double gammaM1M2, sizeT earth
 
 void GravitationalInteraction::apply(const Phase &phase, const double t) {
 
-	calculateRxyzR2R(phase);
+	calculateR(phase);
 
-	F = -gammaM1M2 / pow(r, 3);
-	Fx = F * rx;
-	Fy = F * ry;
-	Fz = F * rz;
+	factor = -gammaM1M2 / pow(r.abs(), 3);
+	F = r * factor;
 
-	applyFxyzOnMoon(phase);
-	applyFxyzOnEarth(phase);
+	applyFOnMoon(phase);
+	applyFOnEarth(phase);
 }
 
 double GravitationalInteraction::getEnergy(const Phase &phase) {
-	calculateRxyzR2R(phase);
-	return -gammaM1M2 / r;
+	calculateR(phase);
+	return -gammaM1M2 / r.abs();
 }
 
 GravitationalInteraction::~GravitationalInteraction() {

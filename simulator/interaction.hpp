@@ -13,23 +13,16 @@ private:
 protected:
 
 	// variables for calculation
-	double rx, ry, rz;
-	double vx, vy, vz;
-	double Fx, Fy, Fz;
-	double r, r2;
-	double v, v2;
-	double F;
+	vector3D r;
+	vector3D v;
+	vector3D F;
 
 	// methods for calculation
-	void calculateRxyz(const Phase &phase);
-	void calculateRxyzR2(const Phase &phase);
-	void calculateRxyzR2R(const Phase &phase);
-	void calculateVxyz(const Phase &phase);
-	void calculateVxyzV2(const Phase &phase);
-	void calculateVxyzV2V(const Phase &phase);
+	void calculateR(const Phase &phase);
+	void calculateV(const Phase &phase);
 
-	void applyFxyzOnMoon(const Phase &phase);
-	void applyFxyzOnEarth(const Phase &phase);
+	void applyFOnMoon(const Phase &phase);
+	void applyFOnEarth(const Phase &phase);
 
 public:
 

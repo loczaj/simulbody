@@ -1,6 +1,8 @@
 #include <math.h>
 #include "coulomb.hpp"
 
+static double factor;
+
 CoulombInteraction::CoulombInteraction(double q1q2, sizeT earth, sizeT moon) {
 	this->q1q2 = q1q2;
 	this->setBodies(earth, moon);
@@ -8,20 +10,18 @@ CoulombInteraction::CoulombInteraction(double q1q2, sizeT earth, sizeT moon) {
 
 void CoulombInteraction::apply(const Phase &phase, const double t) {
 
-	calculateRxyzR2R(phase);
+	calculateR(phase);
 
-	F = q1q2 / pow(r, 3);
-	Fx = F * rx;
-	Fy = F * ry;
-	Fz = F * rz;
+	factor = q1q2 / pow(r.abs(), 3);
+	F = r * factor;
 
-	applyFxyzOnMoon(phase);
-	applyFxyzOnEarth(phase);
+	applyFOnMoon(phase);
+	applyFOnEarth(phase);
 }
 
 double CoulombInteraction::getEnergy(const Phase &phase) {
-	calculateRxyzR2R(phase);
-	return q1q2 / r;
+	calculateR(phase);
+	return q1q2 / r.abs();
 }
 
 CoulombInteraction::~CoulombInteraction() {
