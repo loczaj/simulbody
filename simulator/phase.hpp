@@ -35,6 +35,7 @@ private:
 public:
 
 	Phase();
+	Phase(sizeT size);
 	void resize(sizeT size);
 
 	vector3D getBodyPosition(sizeT body) const;

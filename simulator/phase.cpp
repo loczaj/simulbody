@@ -13,6 +13,11 @@ Phase::Phase() {
 	numberOfBodies = 0;
 }
 
+Phase::Phase(sizeT size)
+		: Phase() {
+	resize(size);
+}
+
 void Phase::resize(sizeT size) {
 	assert(size % 6 == 0);
 	numberOfBodies = size / 6;

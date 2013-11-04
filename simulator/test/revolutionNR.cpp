@@ -9,8 +9,8 @@ sizeT earth, iss, moon, apollo;
 
 std::ofstream stream;
 
-Phase F1(4), F2(4), F3(4), F4(4);
-Phase xtemp(4);
+Phase F1(24), F2(24), F3(24), F4(24);
+Phase xtemp(24);
 
 struct write_state {
 	void operator()(const Phase &x, double &t) const {
@@ -33,20 +33,28 @@ void rungeKutta4(Phase &x, double t, double tau, System &sys) {
 	double half_tau = 0.5 * tau;
 	double t_half = t + half_tau;
 
-	xtemp = x + half_tau * F1;
+	for (sizeT i = 0; i < x.size(); i++)
+		xtemp[i] = x[i] + half_tau * F1[i];
+
 	sys.derive(xtemp, F2, t_half);
 
 	//* Evaluate F3 = f( x+tau*F2/2, t+tau/2 ).
-	xtemp = x + half_tau * F2;
+	for (sizeT i = 0; i < x.size(); i++)
+		xtemp[i] = x[i] + half_tau * F2[i];
+
 	sys.derive(xtemp, F3, t_half);
 
 	//* Evaluate F4 = f( x+tau*F3, t+tau ).
 	double t_full = t + tau;
-	xtemp = x + tau * F3;
+
+	for (sizeT i = 0; i < x.size(); i++)
+		xtemp[i] = x[i] + tau * F3[i];
+
 	sys.derive(xtemp, F4, t_full);
 
 	//* Return x(t+tau) computed from fourth-order R-K.
-	x += tau / 6. * (F1 + F4 + 2. * (F2 + F3));
+	for (sizeT i = 0; i < x.size(); i++)
+		x[i] += tau / 6. * (F1[i] + F4[i] + 2. * (F2[i] + F3[i]));
 
 }
 
@@ -70,12 +78,13 @@ int main(int argc, char* atgv[]) {
 	stream.open("orbits.csv", std::ofstream::out);
 	// std::cout << "E=" << bbsystem.getEnergy() << std::endl;
 
-	double t = 0.0;
 	write_state writer;
+
+	double t = 0.0;
 	while (t < 2.4) {
-		rungeKutta4(bbsystem.phase, t, 0.000001, bbsystem);
 		writer(bbsystem.phase, t);
-		t += 0.000001;
+		rungeKutta4(bbsystem.phase, t, 0.001, bbsystem);
+		t += 0.001;
 	}
 
 	stream.close();
