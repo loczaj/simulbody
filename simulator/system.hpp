@@ -20,8 +20,10 @@ public:
 
 	sizeT createBody(double mass);
 	sizeT createBody(double mass, vector3D position, vector3D velocity);
+	sizeT getNumberOfBodies() const;
 
 	double getBodyMass(sizeT body) const;
+	double getBodyKineticEnergy(sizeT body) const;
 	vector3D getBodyPosition(sizeT body) const;
 	vector3D getBodyVelocity(sizeT body) const;
 
@@ -29,9 +31,9 @@ public:
 	void setBodyPosition(sizeT body, vector3D position);
 	void setBodyVelocity(sizeT body, vector3D velocity);
 
-	void addInteraction(Interaction *interaction);
+	double getSystemEnergy() const;
 
-	double getEnergy();
+	void addInteraction(Interaction *interaction);
 
 	void derive(const Phase &x, Phase &dxdt, const double t) const;
 

@@ -76,19 +76,23 @@ int main(int argc, char* atgv[]) {
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
 	stream.open("orbits.csv", std::ofstream::out);
-	// std::cout << "E=" << bbsystem.getEnergy() << std::endl;
+	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
 	write_state writer;
 
 	double t = 0.0;
+	int steps = 0;
+
 	while (t < 2.4) {
 		writer(bbsystem.phase, t);
 		rungeKutta4(bbsystem.phase, t, 0.001, bbsystem);
 		t += 0.001;
+		steps++;
 	}
 
 	stream.close();
-	// std::cout << "E=" << bbsystem.getEnergy() << std::endl;
+	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
+	std::cout << "N=" << steps << std::endl;
 
 	return 0;
 }

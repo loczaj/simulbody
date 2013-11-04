@@ -44,15 +44,14 @@ int main(int argc, char* atgv[]) {
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
 	stream.open("orbits.csv", std::ofstream::out);
-	//double E = earth->getKineticEnergy() + moon->getKineticEnergy() + gravityEM->getEnergy();
-	//std::cout << "E=" << E << std::endl;
+	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, range_algebra> stepper;
 	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 2.4, 0.001, write_state());
 
 	stream.close();
-	//E = earth->getKineticEnergy() + moon->getKineticEnergy() + gravityEM->getEnergy();
-	//std::cout << "E=" << E << std::endl;
+	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
+	std::cout << "N=" << steps << std::endl;
 
-	return steps;
+	return 0;
 }

@@ -21,6 +21,10 @@ sizeT System::createBody(double mass, vector3D position, vector3D velocity) {
 	return body;
 }
 
+sizeT System::getNumberOfBodies() const {
+	return phase.numberOfBodies;
+}
+
 double System::getBodyMass(sizeT body) const {
 	assert(body < masses.size());
 	return masses[body];
@@ -51,15 +55,21 @@ void System::addInteraction(Interaction *interaction) {
 	interactions.push_back(interaction);
 }
 
-double System::getEnergy() {
-	double energy = 0;
+double System::getBodyKineticEnergy(sizeT body) const {
+	vector3D v = getBodyVelocity(body);
+	return 0.5 * getBodyMass(body) * (v.x * v.x + v.y * v.y + v.z * v.z);
+}
 
-//	for (Body* body : phase.getBodies()) {
-//		energy += body->getKineticEnergy();
-//	}
-//	for (Interaction* interaction : interactions) {
-//		energy += interaction->getEnergy();
-//	}
+double System::getSystemEnergy() const {
+	double energy = 0.0;
+
+	for (sizeT i = 0; i < getNumberOfBodies(); i++) {
+		energy += getBodyKineticEnergy(i);
+	}
+
+	for (Interaction* interaction : interactions) {
+		energy += interaction->getEnergy(phase);
+	}
 
 	return energy;
 }
