@@ -4,8 +4,8 @@ lib bohrbiter
     : <cxxflags>-std=c++11
     ;
 
-exe revolution
-    : test/revolution.cpp .//bohrbiter
+exe hydrogen
+    : test/hydrogen.cpp .//bohrbiter
     : <define>BOOST_ALL_NO_LIB=1
     : <cxxflags>-std=c++11
     ;
