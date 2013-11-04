@@ -51,7 +51,7 @@ void Phase::setBodyPosition(sizeT body, const vector3D position) {
 
 	at(6 * body + pos_X) = position.x;
 	at(6 * body + pos_Y) = position.y;
-	at(6 * body + pos_Z) = position.y;
+	at(6 * body + pos_Z) = position.z;
 }
 
 void Phase::setBodyVelocity(sizeT body, const vector3D velocity) {
@@ -59,7 +59,7 @@ void Phase::setBodyVelocity(sizeT body, const vector3D velocity) {
 
 	at(6 * body + pos_Vx) = velocity.x;
 	at(6 * body + pos_Vy) = velocity.y;
-	at(6 * body + pos_Vz) = velocity.y;
+	at(6 * body + pos_Vz) = velocity.z;
 }
 
 void Phase::clearForces() const {
