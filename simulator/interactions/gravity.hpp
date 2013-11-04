@@ -1,3 +1,6 @@
+#ifndef GRAVITY_HPP
+#define GRAVITY_HPP
+
 #include "../interaction.hpp"
 
 class GravitationalInteraction: public Interaction {
@@ -14,3 +17,6 @@ public:
 
 	virtual ~GravitationalInteraction() override;
 };
+
+
+#endif // GRAVITY_HPP

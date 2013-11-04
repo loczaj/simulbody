@@ -1,3 +1,6 @@
+#ifndef COULOMB_HPP
+#define COULOMB_HPP
+
 #include "../interaction.hpp"
 
 class CoulombInteraction: public Interaction {
@@ -14,3 +17,6 @@ public:
 
 	virtual ~CoulombInteraction() override;
 };
+
+
+#endif // COULOMB_HPP
