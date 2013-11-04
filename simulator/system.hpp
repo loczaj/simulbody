@@ -26,12 +26,18 @@ public:
 	double getBodyKineticEnergy(sizeT body) const;
 	vector3D getBodyPosition(sizeT body) const;
 	vector3D getBodyVelocity(sizeT body) const;
+	vector3D getBodyImpulse(sizeT body) const;
 
 	void setBodyMass(sizeT body, double mass);
 	void setBodyPosition(sizeT body, vector3D position);
 	void setBodyVelocity(sizeT body, vector3D velocity);
 
+	double getSystemMass() const;
 	double getSystemEnergy() const;
+	vector3D getSystemCenterOfMass() const;
+	vector3D getSystemImpulse() const;
+
+	void convertToCenterOfMassSystem();
 
 	void addInteraction(Interaction *interaction);
 

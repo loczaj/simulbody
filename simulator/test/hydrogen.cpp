@@ -29,18 +29,22 @@ int main(int argc, char* atgv[]) {
 	proton = bbsystem.createBody(1836.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 0.0, 0.0));
 	electron = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
 
+	bbsystem.convertToCenterOfMassSystem();
+
 	Interaction* coulomb = new CoulombInteraction(-1.0, proton, electron);
 	bbsystem.addInteraction(coulomb);
 
 	std::cout.precision(10);
 	stream.open("orbits.csv", std::ofstream::out);
-	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
+	std::cout << "E0=" << bbsystem.getSystemEnergy() << "\t";
+	std::cout << "p0=" << bbsystem.getSystemImpulse().abs() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, range_algebra> stepper;
 	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, write_state());
 
 	stream.close();
-	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
+	std::cout << "En=" << bbsystem.getSystemEnergy() << "\t";
+	std::cout << "pN=" << bbsystem.getSystemImpulse().abs() << std::endl;
 	std::cout << "N=" << steps << std::endl;
 
 	return 0;

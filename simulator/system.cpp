@@ -30,12 +30,22 @@ double System::getBodyMass(sizeT body) const {
 	return masses[body];
 }
 
+double System::getBodyKineticEnergy(sizeT body) const {
+	vector3D v = getBodyVelocity(body);
+	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
+}
+
 vector3D System::getBodyPosition(sizeT body) const {
 	return phase.getBodyPosition(body);
 }
 
 vector3D System::getBodyVelocity(sizeT body) const {
 	return phase.getBodyVelocity(body);
+}
+
+vector3D System::getBodyImpulse(sizeT body) const {
+	vector3D velocity = getBodyVelocity(body);
+	return velocity * getBodyMass(body);
 }
 
 void System::setBodyMass(sizeT body, double mass) {
@@ -51,27 +61,58 @@ void System::setBodyVelocity(sizeT body, vector3D velocity) {
 	phase.setBodyVelocity(body, velocity);
 }
 
-void System::addInteraction(Interaction *interaction) {
-	interactions.push_back(interaction);
-}
+double System::getSystemMass() const {
+	double mass = 0.0;
+	for (sizeT i = 0; i < getNumberOfBodies(); i++) {
+		mass += getBodyMass(i);
+	}
 
-double System::getBodyKineticEnergy(sizeT body) const {
-	vector3D v = getBodyVelocity(body);
-	return 0.5 * getBodyMass(body) * (v.x * v.x + v.y * v.y + v.z * v.z);
+	return mass;
 }
 
 double System::getSystemEnergy() const {
 	double energy = 0.0;
-
 	for (sizeT i = 0; i < getNumberOfBodies(); i++) {
 		energy += getBodyKineticEnergy(i);
 	}
-
 	for (Interaction* interaction : interactions) {
 		energy += interaction->getEnergy(phase);
 	}
 
 	return energy;
+}
+
+vector3D System::getSystemCenterOfMass() const {
+	vector3D centerOfMass;
+	for (size_t i = 0; i < getNumberOfBodies(); i++) {
+		centerOfMass += getBodyPosition(i) * getBodyMass(i);
+	}
+
+	centerOfMass /= getSystemMass();
+	return centerOfMass;
+}
+
+vector3D System::getSystemImpulse() const {
+	vector3D impulse;
+	for (size_t i = 0; i < getNumberOfBodies(); i++) {
+		impulse += getBodyImpulse(i);
+	}
+
+	return impulse;
+}
+
+void System::convertToCenterOfMassSystem() {
+	vector3D systemCenterOfMass = getSystemCenterOfMass();
+	vector3D systemVelocity = getSystemImpulse() / getSystemMass();
+
+	for (size_t i = 0; i < getNumberOfBodies(); i++) {
+		setBodyPosition(i, getBodyPosition(i) - systemCenterOfMass);
+		setBodyVelocity(i, getBodyVelocity(i) - systemVelocity);
+	}
+}
+
+void System::addInteraction(Interaction *interaction) {
+	interactions.push_back(interaction);
 }
 
 void System::derive(const Phase &x, Phase &dxdt, const double t) const {

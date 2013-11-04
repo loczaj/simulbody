@@ -4,14 +4,9 @@
 #include <vector>
 #include <boost/numeric/odeint.hpp>
 
-typedef std::vector<double>::size_type sizeT;
+#include "vector3d.hpp"
 
-struct vector3D {
-	double x, y, z;
-	vector3D(double a, double b, double c)
-			: x(a), y(b), z(c) {
-	}
-};
+typedef std::vector<double>::size_type sizeT;
 
 class Phase: public std::vector<double> {
 
