@@ -1,6 +1,7 @@
 #ifndef SYSTEM_HPP
 #define SYSTEM_HPP
 
+#include <utility>
 #include <vector>
 
 #include "interaction.hpp"
@@ -37,7 +38,7 @@ public:
 	vector3D getSystemCenterOfMass() const;
 	vector3D getSystemImpulse() const;
 
-	void convertToCenterOfMassSystem();
+	std::pair<vector3D, vector3D> convertToCenterOfMassSystem();
 
 	void addInteraction(Interaction *interaction);
 

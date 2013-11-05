@@ -1,6 +1,8 @@
 #ifndef VECTOR3D_HPP
 #define VECTOR3D_HPP
 
+#include <ostream>
+
 struct vector3D {
 	double x, y, z;
 
@@ -91,6 +93,11 @@ struct vector3D {
 	double abs() const {
 		return sqrt(x * x + y * y + z * z);
 	}
+
 };
+
+inline std::ostream& operator<<(std::ostream &out, const vector3D &v) {
+	return out << v.x << "\t" << v.y << "\t" << v.z << "\t";
+}
 
 #endif /* VECTOR3D_HPP */

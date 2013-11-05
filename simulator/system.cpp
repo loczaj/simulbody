@@ -101,7 +101,7 @@ vector3D System::getSystemImpulse() const {
 	return impulse;
 }
 
-void System::convertToCenterOfMassSystem() {
+std::pair<vector3D, vector3D> System::convertToCenterOfMassSystem() {
 	vector3D systemCenterOfMass = getSystemCenterOfMass();
 	vector3D systemVelocity = getSystemImpulse() / getSystemMass();
 
@@ -109,6 +109,9 @@ void System::convertToCenterOfMassSystem() {
 		setBodyPosition(i, getBodyPosition(i) - systemCenterOfMass);
 		setBodyVelocity(i, getBodyVelocity(i) - systemVelocity);
 	}
+
+	std::pair<vector3D, vector3D> center(systemCenterOfMass, systemVelocity);
+	return center;
 }
 
 void System::addInteraction(Interaction *interaction) {
