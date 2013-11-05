@@ -7,6 +7,7 @@ class CoulombInteraction: public Interaction {
 
 private:
 	double q1q2;
+	double factor = 0.0;
 
 public:
 	CoulombInteraction(double q1q2, sizeT earth, sizeT moon);

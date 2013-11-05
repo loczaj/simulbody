@@ -16,14 +16,14 @@ struct vector3D {
 			: x(vx), y(vy), z(vz) {
 	}
 
-	vector3D& operator+=(const vector3D& term) {
+	vector3D& operator+=(const vector3D &term) {
 		x += term.x;
 		y += term.y;
 		z += term.z;
 		return *this;
 	}
 
-	vector3D& operator-=(const vector3D& term) {
+	vector3D& operator-=(const vector3D &term) {
 		x -= term.x;
 		y -= term.y;
 		z -= term.z;
@@ -46,26 +46,42 @@ struct vector3D {
 
 	vector3D operator+(const vector3D &term) const {
 		vector3D sum(*this);
-		sum += term;
+		sum.x += term.x;
+		sum.y += term.y;
+		sum.z += term.z;
 		return sum;
 	}
 
 	vector3D operator-(const vector3D &term) const {
 		vector3D difference(*this);
-		difference -= term;
+		difference.x -= term.x;
+		difference.y -= term.y;
+		difference.z -= term.z;
 		return difference;
 	}
 
 	vector3D operator*(const double &factor) const {
 		vector3D product(*this);
-		product *= factor;
+		product.x *= factor;
+		product.y *= factor;
+		product.z *= factor;
 		return product;
 	}
 
 	vector3D operator/(const double &divisor) const {
 		vector3D quotient(*this);
-		quotient /= divisor;
+		quotient.x /= divisor;
+		quotient.y /= divisor;
+		quotient.z /= divisor;
 		return quotient;
+	}
+
+	vector3D operator-() const {
+		vector3D negative;
+		negative.x = -x;
+		negative.y = -y;
+		negative.z = -z;
+		return negative;
 	}
 
 	double scalarProduct(const vector3D &v2) const {
@@ -73,7 +89,7 @@ struct vector3D {
 	}
 
 	double abs() const {
-		return sqrt(scalarProduct(*this));
+		return sqrt(x * x + y * y + z * z);
 	}
 };
 

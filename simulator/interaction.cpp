@@ -22,7 +22,7 @@ void Interaction::applyFOnMoon(const Phase &phase) {
 }
 
 void Interaction::applyFOnEarth(const Phase &phase) {
-	phase.addForceOnBody(earth, F * -1.0);
+	phase.addForceOnBody(earth, -F);
 }
 
 Interaction::~Interaction() {
