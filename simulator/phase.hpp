@@ -8,6 +8,11 @@
 
 typedef std::vector<double>::size_type sizeT;
 
+enum Coord
+	: sizeT {
+		x = 0, y = 1, z = 2, vx = 3, vy = 4, vz = 5
+};
+
 class Phase: public std::vector<double> {
 
 	friend class System;
