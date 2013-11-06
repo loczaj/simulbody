@@ -6,8 +6,8 @@ Plotter::Plotter(std::ostream &stream)
 		: stream(&stream) {
 }
 
-void Plotter::addField(PlotField &field) {
-	fields.push_back(&field);
+void Plotter::addField(PlotField* field) {
+	fields.push_back(field);
 }
 
 void Plotter::operator()(const Phase& p, double t) {

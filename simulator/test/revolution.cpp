@@ -36,10 +36,10 @@ int main(int argc, char* atgv[]) {
 	stream.open("orbits.csv", std::ofstream::out);
 
 	Plotter plot(stream);
-	plot.addField(*new BodyPlotField(earth, { Coord::x, Coord::y }));
-	plot.addField(*new BodyPlotField(moon, { Coord::x, Coord::y }));
-	plot.addField(*new BodyPlotField(iss, { Coord::x, Coord::y }));
-	plot.addField(*new BodyPlotField(apollo, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(earth, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(moon, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(iss, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(apollo, { Coord::x, Coord::y }));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 

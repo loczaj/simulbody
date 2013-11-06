@@ -29,8 +29,8 @@ int main(int argc, char* atgv[]) {
 	stream.open("orbits.csv", std::ofstream::out);
 
 	Plotter plot(stream);
-	plot.addField(*new BodyPlotField(proton, { Coord::x, Coord::y }));
-	plot.addField(*new BodyPlotField(electron, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(proton, { Coord::x, Coord::y }));
+	plot.addField(new BodyPlotField(electron, { Coord::x, Coord::y }));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << "\t";
 	std::cout << "p0=" << bbsystem.getSystemImpulse().abs() << std::endl;

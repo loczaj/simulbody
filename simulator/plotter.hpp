@@ -33,7 +33,7 @@ public:
 
 	Plotter(std::ostream &stream);
 
-	void addField(PlotField &field);
+	void addField(PlotField* field);
 
 	void operator()(const Phase& x, double t);
 
