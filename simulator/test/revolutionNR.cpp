@@ -2,27 +2,11 @@
 
 #include "../phase.hpp"
 #include "../system.hpp"
+#include "../plotter.hpp"
 #include "../interactions/gravity.hpp"
-
-System bbsystem;
-sizeT earth, iss, moon, apollo;
-
-std::ofstream stream;
 
 Phase F1(24), F2(24), F3(24), F4(24);
 Phase xtemp(24);
-
-struct write_state {
-	void operator()(const Phase &x, double &t) const {
-		vector3D e = x.getBodyPosition(earth);
-		vector3D m = x.getBodyPosition(moon);
-		vector3D i = x.getBodyPosition(iss);
-		vector3D a = x.getBodyPosition(apollo);
-
-		stream << e.x << "\t" << e.y << "\t" << m.x << "\t" << m.y << "\t";
-		stream << i.x << "\t" << i.y << "\t" << a.x << "\t" << a.y << "\n";
-	}
-};
 
 void rungeKutta4(Phase &x, double t, double tau, System &sys) {
 
@@ -59,12 +43,12 @@ void rungeKutta4(Phase &x, double t, double tau, System &sys) {
 }
 
 int main(int argc, char* atgv[]) {
-	bbsystem = System();
+	System bbsystem;
 
-	earth = bbsystem.createBody(5.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
-	moon = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 2.0, 0.0));
-	iss = bbsystem.createBody(0.001, vector3D(0.2, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
-	apollo = bbsystem.createBody(0.001, vector3D(1.1, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
+	sizeT earth = bbsystem.createBody(5.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
+	sizeT moon = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 2.0, 0.0));
+	sizeT iss = bbsystem.createBody(0.001, vector3D(0.2, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
+	sizeT apollo = bbsystem.createBody(0.001, vector3D(1.1, 0.0, 0.0), vector3D(0.0, 3.5, 0.0));
 
 	Interaction* gravityEM = new GravitationalInteraction(5, earth, moon);
 	Interaction* gravityEI = new GravitationalInteraction(0.005, earth, iss);
@@ -75,16 +59,22 @@ int main(int argc, char* atgv[]) {
 
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
+	std::ofstream stream;
 	stream.open("orbits.csv", std::ofstream::out);
-	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
-	write_state writer;
+	Plotter plot(stream);
+	plot.addField(*new BodyPlotField(earth, { Coord::x, Coord::y }));
+	plot.addField(*new BodyPlotField(moon, { Coord::x, Coord::y }));
+	plot.addField(*new BodyPlotField(iss, { Coord::x, Coord::y }));
+	plot.addField(*new BodyPlotField(apollo, { Coord::x, Coord::y }));
+
+	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
 	double t = 0.0;
 	int steps = 0;
 
 	while (t < 2.4) {
-		writer(bbsystem.phase, t);
+		plot(bbsystem.phase, t);
 		rungeKutta4(bbsystem.phase, t, 0.001, bbsystem);
 		t += 0.001;
 		steps++;
