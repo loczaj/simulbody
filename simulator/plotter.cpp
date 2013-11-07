@@ -56,3 +56,15 @@ void BodyPlotField::writeField(const Phase &p, const double &t, std::ostream &s)
 			s << "\t";
 	}
 }
+
+ConditionPlotField::ConditionPlotField(Condition* condition)
+		: condition(condition) {
+}
+
+void ConditionPlotField::writeField(const Phase &p, const double &t, std::ostream &s) {
+	if (condition->evaluate(p, t)) {
+		s << "1";
+	} else {
+		s << "0";
+	}
+}

@@ -3,6 +3,7 @@
 
 #include "../system.hpp"
 #include "../plotter.hpp"
+#include "../condition.hpp"
 #include "../interactions/gravity.hpp"
 
 System bbsystem;
@@ -32,6 +33,8 @@ int main(int argc, char* atgv[]) {
 
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
+	DistanceCondition cond(earth, apollo, 1.0);
+
 	std::ofstream stream;
 	stream.open("orbits.csv", std::ofstream::out);
 
@@ -40,6 +43,7 @@ int main(int argc, char* atgv[]) {
 	plot.addField(new BodyPlotField(moon, { Coord::x, Coord::y }));
 	plot.addField(new BodyPlotField(iss, { Coord::x, Coord::y }));
 	plot.addField(new BodyPlotField(apollo, { Coord::x, Coord::y }));
+	plot.addField(new ConditionPlotField(&cond));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 

@@ -6,10 +6,10 @@
 #include <initializer_list>
 
 #include "phase.hpp"
+#include "condition.hpp"
 
 class PlotField {
 public:
-
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) = 0;
 	virtual ~PlotField() {
 	}
@@ -17,18 +17,25 @@ public:
 
 class BodyPlotField: public PlotField {
 private:
-
 	sizeT body;
 	std::vector<Coord> coordinates;
 
 public:
-	BodyPlotField(sizeT body, std::initializer_list<Coord> coodrs);
-	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream);
+	BodyPlotField(sizeT body, std::initializer_list<Coord> coords);
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+};
+
+class ConditionPlotField: public PlotField {
+private:
+	Condition* condition;
+
+public:
+	ConditionPlotField(Condition* condition);
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
 };
 
 class Plotter {
 public:
-
 	std::vector<PlotField*> fields;
 
 	Plotter(std::ostream &stream);
@@ -38,7 +45,6 @@ public:
 	void operator()(const Phase& x, double t);
 
 private:
-
 	std::ostream* stream;
 };
 
