@@ -90,6 +90,10 @@ struct vector3D {
 		return x * v2.x + y * v2.y + z * v2.z;
 	}
 
+	double distance(const vector3D &v2) const {
+		return sqrt((x - v2.x) * (x - v2.x) + (y - v2.y) * (y - v2.y) + (z - v2.z) * (z - v2.z));
+	}
+
 	double abs() const {
 		return sqrt(x * x + y * y + z * z);
 	}
