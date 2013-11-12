@@ -2,7 +2,7 @@
 
 #include "../phase.hpp"
 #include "../system.hpp"
-#include "../plotter.hpp"
+#include "../printer.hpp"
 #include "../interactions/gravity.hpp"
 
 Phase F1(24), F2(24), F3(24), F4(24);

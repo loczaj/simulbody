@@ -1,5 +1,5 @@
 lib bohrbiter
-    : phase.cpp interaction.cpp system.cpp plotter.cpp interactions/coulomb.cpp interactions/gravity.cpp
+    : phase.cpp interaction.cpp system.cpp printer.cpp interactions/coulomb.cpp interactions/gravity.cpp
     : <define>BOOST_ALL_NO_LIB=1
     : <cxxflags>-std=c++11
     ;

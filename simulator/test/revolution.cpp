@@ -2,7 +2,7 @@
 #include <boost/numeric/odeint.hpp>
 
 #include "../system.hpp"
-#include "../plotter.hpp"
+#include "../printer.hpp"
 #include "../condition.hpp"
 #include "../interactions/gravity.hpp"
 
