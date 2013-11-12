@@ -20,7 +20,7 @@ public:
 	void setNumericalMethod(NumericalMethod method);
 
 	void addStopCondition();
-	void addPlotter();
+	void addPrinter();
 
 	int simulate(double startTime, double endTime, double deltaTime);
 	int simulateControlled(double startTime, double endTime, double deltaTime, double tolerance);

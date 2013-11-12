@@ -28,15 +28,15 @@ int main(int argc, char* atgv[]) {
 	std::cout.precision(10);
 	stream.open("orbits.csv", std::ofstream::out);
 
-	Plotter plot(stream);
-	plot.addField(new BodyPlotField(proton, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(electron, { Coord::x, Coord::y }));
+	Printer print(stream);
+	print.addField(new BodyPrintField(proton, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(electron, { Coord::x, Coord::y }));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << "\t";
 	std::cout << "p0=" << bbsystem.getSystemImpulse().abs() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, range_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, plot);
+	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, print);
 
 	std::cout << "En=" << bbsystem.getSystemEnergy() << "\t";
 	std::cout << "pN=" << bbsystem.getSystemImpulse().abs() << std::endl;

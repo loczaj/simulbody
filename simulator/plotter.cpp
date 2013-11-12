@@ -1,16 +1,16 @@
 #include "plotter.hpp"
 
-// Plotter
+// Printer
 
-Plotter::Plotter(std::ostream &stream)
+Printer::Printer(std::ostream &stream)
 		: stream(&stream) {
 }
 
-void Plotter::addField(PlotField* field) {
+void Printer::addField(PrintField* field) {
 	fields.push_back(field);
 }
 
-void Plotter::operator()(const Phase& p, double t) {
+void Printer::operator()(const Phase& p, double t) {
 	for (sizeT i = 0; i < fields.size(); i++) {
 		fields[i]->writeField(p, t, *stream);
 
@@ -22,14 +22,14 @@ void Plotter::operator()(const Phase& p, double t) {
 
 // Fields
 
-BodyPlotField::BodyPlotField(sizeT body, std::initializer_list<Coord> coords)
+BodyPrintField::BodyPrintField(sizeT body, std::initializer_list<Coord> coords)
 		: body(body) {
 	for (Coord c : coords) {
 		coordinates.push_back(c);
 	}
 }
 
-void BodyPlotField::writeField(const Phase &p, const double &t, std::ostream &s) {
+void BodyPrintField::writeField(const Phase &p, const double &t, std::ostream &s) {
 	for (sizeT i = 0; i < coordinates.size(); i++) {
 
 		switch (coordinates[i]) {
@@ -57,11 +57,11 @@ void BodyPlotField::writeField(const Phase &p, const double &t, std::ostream &s)
 	}
 }
 
-ConditionPlotField::ConditionPlotField(Condition* condition)
+ConditionPrintField::ConditionPrintField(Condition* condition)
 		: condition(condition) {
 }
 
-void ConditionPlotField::writeField(const Phase &p, const double &t, std::ostream &s) {
+void ConditionPrintField::writeField(const Phase &p, const double &t, std::ostream &s) {
 	if (condition->evaluate(p, t)) {
 		s << "1";
 	} else {

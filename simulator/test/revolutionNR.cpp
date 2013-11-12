@@ -62,11 +62,11 @@ int main(int argc, char* atgv[]) {
 	std::ofstream stream;
 	stream.open("orbits.csv", std::ofstream::out);
 
-	Plotter plot(stream);
-	plot.addField(new BodyPlotField(earth, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(moon, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(iss, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(apollo, { Coord::x, Coord::y }));
+	Printer print(stream);
+	print.addField(new BodyPrintField(earth, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(moon, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(iss, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(apollo, { Coord::x, Coord::y }));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
@@ -74,7 +74,7 @@ int main(int argc, char* atgv[]) {
 	int steps = 0;
 
 	while (t < 2.4) {
-		plot(bbsystem.phase, t);
+		print(bbsystem.phase, t);
 		rungeKutta4(bbsystem.phase, t, 0.001, bbsystem);
 		t += 0.001;
 		steps++;

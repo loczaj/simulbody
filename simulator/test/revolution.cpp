@@ -38,17 +38,17 @@ int main(int argc, char* atgv[]) {
 	std::ofstream stream;
 	stream.open("orbits.csv", std::ofstream::out);
 
-	Plotter plot(stream);
-	plot.addField(new BodyPlotField(earth, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(moon, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(iss, { Coord::x, Coord::y }));
-	plot.addField(new BodyPlotField(apollo, { Coord::x, Coord::y }));
-	plot.addField(new ConditionPlotField(&cond));
+	Printer print(stream);
+	print.addField(new BodyPrintField(earth, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(moon, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(iss, { Coord::x, Coord::y }));
+	print.addField(new BodyPrintField(apollo, { Coord::x, Coord::y }));
+	print.addField(new ConditionPrintField(&cond));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase, double, Phase, double, range_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, plot);
+	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, print);
 
 	stream.close();
 	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;

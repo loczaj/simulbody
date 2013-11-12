@@ -1,5 +1,5 @@
-#ifndef PLOTTER_HPP
-#define PLOTTER_HPP
+#ifndef PRINTER_HPP
+#define PRINTER_HPP
 
 #include <iostream>
 #include <vector>
@@ -8,39 +8,39 @@
 #include "phase.hpp"
 #include "condition.hpp"
 
-class PlotField {
+class PrintField {
 public:
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) = 0;
-	virtual ~PlotField() {
+	virtual ~PrintField() {
 	}
 };
 
-class BodyPlotField: public PlotField {
+class BodyPrintField: public PrintField {
 private:
 	sizeT body;
 	std::vector<Coord> coordinates;
 
 public:
-	BodyPlotField(sizeT body, std::initializer_list<Coord> coords);
+	BodyPrintField(sizeT body, std::initializer_list<Coord> coords);
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
 };
 
-class ConditionPlotField: public PlotField {
+class ConditionPrintField: public PrintField {
 private:
 	Condition* condition;
 
 public:
-	ConditionPlotField(Condition* condition);
+	ConditionPrintField(Condition* condition);
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
 };
 
-class Plotter {
+class Printer {
 public:
-	std::vector<PlotField*> fields;
+	std::vector<PrintField*> fields;
 
-	Plotter(std::ostream &stream);
+	Printer(std::ostream &stream);
 
-	void addField(PlotField* field);
+	void addField(PrintField* field);
 
 	void operator()(const Phase& x, double t);
 
@@ -48,4 +48,4 @@ private:
 	std::ostream* stream;
 };
 
-#endif /* PLOTTER_HPP */
+#endif /* PRINTER_HPP */
