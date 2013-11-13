@@ -1,7 +1,13 @@
 #ifndef SIMULATOR_HPP
 #define SIMULATOR_HPP
 
+#include <boost/numeric/odeint.hpp>
+
 #include "system.hpp"
+#include "condition.hpp"
+#include "printer.hpp"
+
+using namespace boost::numeric::odeint;
 
 enum class NumericalMethod {
 	adams_bashforth_moulton,
@@ -12,18 +18,34 @@ enum class NumericalMethod {
 };
 
 class Simulator {
+private:
+
+	NumericalMethod method = NumericalMethod::runge_kutta4;
+
+	adams_bashforth_moulton<5, Phase> stepperABM;
+	runge_kutta4_classic<Phase> stepperRK4;
+	runge_kutta_dopri5<Phase> stepperRKD5;
+	runge_kutta_fehlberg78<Phase> stepperRKF78;
+	symplectic_rkn_sb3a_mclachlan<Phase> stepperSRSM;
+
+	controlled_runge_kutta<runge_kutta_dopri5<Phase>, default_error_checker<double> > stepperControlledRKD5;
+	controlled_runge_kutta<runge_kutta_fehlberg78<Phase>, default_error_checker<double> > stepperControlledRKF78;
+
+	System* system = nullptr;
+	Printer* printer = nullptr;
+	Condition* stopCondition = nullptr;
 
 public:
-	Simulator();
 
 	void setSystem(System* system);
-	void setNumericalMethod(NumericalMethod method);
+	void setStopCondition(Condition* condition);
+	void setPrinter(Printer* printer);
 
-	void addStopCondition();
-	void addPrinter();
+	void setNumericalMethod(NumericalMethod method);
+	void setErrorTolerance(double absoluteError, double relativeError);
 
 	int simulate(double startTime, double endTime, double deltaTime);
-	int simulateControlled(double startTime, double endTime, double deltaTime, double tolerance);
+	int simulateAdaptive(double startTime, double endTime, double deltaTime);
 
 };
 
