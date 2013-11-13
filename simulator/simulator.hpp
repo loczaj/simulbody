@@ -2,12 +2,14 @@
 #define SIMULATOR_HPP
 
 #include <boost/numeric/odeint.hpp>
+#include <type_traits>
 
 #include "system.hpp"
 #include "condition.hpp"
 #include "printer.hpp"
 
 using namespace boost::numeric::odeint;
+namespace pl = std::placeholders;
 
 enum class NumericalMethod {
 	adams_bashforth_moulton,
@@ -17,8 +19,12 @@ enum class NumericalMethod {
 	symplectic_rkn_sb3a_mclachlan
 };
 
+extern void rhs(const Phase &x, Phase &dxdt, const double t);
+template<class stepperT>
 class Simulator {
 private:
+
+	stepperT step;
 
 	NumericalMethod method = NumericalMethod::runge_kutta4;
 
@@ -37,14 +43,24 @@ private:
 
 public:
 
-	void setSystem(System* system);
-	void setStopCondition(Condition* condition);
-	void setPrinter(Printer* printer);
+	void setSystem(System* system) {
+		this->system = system;
+	}
+	void setStopCondition(Condition* condition) {
+		this->stopCondition = condition;
+	}
+	void setPrinter(Printer* printer) {
+		this->printer = printer;
+	}
 
-	void setNumericalMethod(NumericalMethod method);
 	void setErrorTolerance(double absoluteError, double relativeError);
 
-	int simulate(double startTime, double endTime, double deltaTime);
+	int simulate(double startTime, double endTime, double deltaTime) {
+		int steps = integrate_const(step, std::bind(&System::derive, *system, pl::_1, pl::_2, pl::_3),
+				system->phase, startTime, endTime, deltaTime, *printer);
+		return steps;
+	}
+
 	int simulateAdaptive(double startTime, double endTime, double deltaTime);
 
 };
