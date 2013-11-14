@@ -28,8 +28,8 @@ int main(int argc, char* atgv[]) {
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << "\t";
 	std::cout << "p0=" << bbsystem.getSystemImpulse().abs() << std::endl;
 
-	Simulator<runge_kutta4<Phase>> simulator;
-	simulator.setSystem(&bbsystem);
+	runge_kutta4_classic<Phase> stepper;
+	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
 	simulator.setPrinter(&print);
 	int steps = simulator.simulate(0.0, 10.0, 0.001);
 

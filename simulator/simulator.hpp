@@ -30,6 +30,9 @@ private:
 	Condition* stopCondition = nullptr;
 
 public:
+	Simulator(StepperT stepper, System* system)
+			: stepper(stepper), system(system) {
+	}
 
 	void setSystem(System* system) {
 		this->system = system;
