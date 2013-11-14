@@ -2,20 +2,13 @@
 #include <boost/numeric/odeint.hpp>
 
 #include "../system.hpp"
+#include "../simulator.hpp"
 #include "../printer.hpp"
 #include "../condition.hpp"
 #include "../interactions/gravity.hpp"
 
-System bbsystem;
-
-void rhs(const Phase &x, Phase &dxdt, const double t) {
-	bbsystem.derive(x, dxdt, t);
-}
-
-using namespace boost::numeric::odeint;
-
 int main(int argc, char* atgv[]) {
-	bbsystem = System();
+	System bbsystem;
 
 	sizeT earth = bbsystem.createBody(5.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
 	sizeT moon = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 2.0, 0.0));
@@ -47,8 +40,11 @@ int main(int argc, char* atgv[]) {
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
-	runge_kutta4_classic<Phase, double, Phase, double, range_algebra> stepper;
-	int steps = integrate_const(stepper, rhs, bbsystem.phase, 0.0, 10.0, 0.001, print);
+	runge_kutta4_classic<Phase> stepper;
+	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
+	simulator.setPrinter(&print);
+
+	int steps = simulator.simulate(0.0, 10.0, 0.001);
 
 	stream.close();
 	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;

@@ -21,16 +21,17 @@ int main(int argc, char* atgv[]) {
 	std::cout.precision(10);
 	stream.open("orbits.csv", std::ofstream::out);
 
-	Printer print(stream);
-	print.addField(new BodyPrintField(proton, { Coord::x, Coord::y }));
-	print.addField(new BodyPrintField(electron, { Coord::x, Coord::y }));
+	Printer* printer = new Printer(stream);
+	printer->addField(new BodyPrintField(proton, { Coord::x, Coord::y }));
+	printer->addField(new BodyPrintField(electron, { Coord::x, Coord::y }));
 
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << "\t";
 	std::cout << "p0=" << bbsystem.getSystemImpulse().abs() << std::endl;
 
 	runge_kutta4_classic<Phase> stepper;
 	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
-	simulator.setPrinter(&print);
+	simulator.setPrinter(printer);
+
 	int steps = simulator.simulate(0.0, 10.0, 0.001);
 
 	std::cout << "En=" << bbsystem.getSystemEnergy() << "\t";
