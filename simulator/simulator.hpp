@@ -2,11 +2,11 @@
 #define SIMULATOR_HPP
 
 #include <boost/numeric/odeint.hpp>
-#include <type_traits>
+#include <functional>
 
-#include "system.hpp"
 #include "condition.hpp"
 #include "printer.hpp"
+#include "system.hpp"
 
 using namespace boost::numeric::odeint;
 namespace pl = std::placeholders;
@@ -19,23 +19,11 @@ enum class NumericalMethod {
 	symplectic_rkn_sb3a_mclachlan
 };
 
-extern void rhs(const Phase &x, Phase &dxdt, const double t);
-template<class stepperT>
+template<class StepperT>
 class Simulator {
 private:
 
-	stepperT step;
-
-	NumericalMethod method = NumericalMethod::runge_kutta4;
-
-	adams_bashforth_moulton<5, Phase> stepperABM;
-	runge_kutta4_classic<Phase> stepperRK4;
-	runge_kutta_dopri5<Phase> stepperRKD5;
-	runge_kutta_fehlberg78<Phase> stepperRKF78;
-	symplectic_rkn_sb3a_mclachlan<Phase> stepperSRSM;
-
-	controlled_runge_kutta<runge_kutta_dopri5<Phase>, default_error_checker<double> > stepperControlledRKD5;
-	controlled_runge_kutta<runge_kutta_fehlberg78<Phase>, default_error_checker<double> > stepperControlledRKF78;
+	StepperT stepper;
 
 	System* system = nullptr;
 	Printer* printer = nullptr;
@@ -53,10 +41,8 @@ public:
 		this->printer = printer;
 	}
 
-	void setErrorTolerance(double absoluteError, double relativeError);
-
 	int simulate(double startTime, double endTime, double deltaTime) {
-		int steps = integrate_const(step, std::bind(&System::derive, *system, pl::_1, pl::_2, pl::_3),
+		int steps = integrate_const(stepper, std::bind(&System::derive, *system, pl::_1, pl::_2, pl::_3),
 				system->phase, startTime, endTime, deltaTime, *printer);
 		return steps;
 	}
