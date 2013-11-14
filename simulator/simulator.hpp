@@ -2,51 +2,42 @@
 #define SIMULATOR_HPP
 
 #include <boost/numeric/odeint.hpp>
-#include <functional>
 
 #include "condition.hpp"
 #include "printer.hpp"
 #include "system.hpp"
 
 using namespace boost::numeric::odeint;
-namespace pl = std::placeholders;
-
-enum class NumericalMethod {
-	adams_bashforth_moulton,
-	runge_kutta4,
-	runge_kutta_dopri5,
-	runge_kutta_fehlberg78,
-	symplectic_rkn_sb3a_mclachlan
-};
 
 template<class StepperT>
 class Simulator {
 private:
 
 	StepperT stepper;
+	System* bbsystem;
 
-	System* system = nullptr;
 	Printer* printer = nullptr;
 	Condition* stopCondition = nullptr;
 
 public:
-	Simulator(StepperT stepper, System* system)
-			: stepper(stepper), system(system) {
+	Simulator(StepperT stepper, System* sys)
+			: stepper(stepper), bbsystem(sys) {
 	}
 
-	void setSystem(System* system) {
-		this->system = system;
-	}
 	void setStopCondition(Condition* condition) {
 		this->stopCondition = condition;
 	}
+
 	void setPrinter(Printer* printer) {
 		this->printer = printer;
 	}
 
+	void operator()(const Phase &x, Phase &dxdt, const double t) {
+		bbsystem->derive(x, dxdt, t);
+	}
+
 	int simulate(double startTime, double endTime, double deltaTime) {
-		int steps = integrate_const(stepper, std::bind(&System::derive, *system, pl::_1, pl::_2, pl::_3),
-				system->phase, startTime, endTime, deltaTime, *printer);
+		int steps = integrate_const(stepper, *this, bbsystem->phase, startTime, endTime, deltaTime, *printer);
 		return steps;
 	}
 
