@@ -2,6 +2,7 @@
 #define PRINTER_HPP
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <initializer_list>
 
@@ -15,8 +16,21 @@ public:
 	}
 };
 
+class Printer {
+	std::vector<PrintField*> fields;
+	std::ostream* stream = nullptr;
+	std::ofstream* fileStream = nullptr;
+
+public:
+	Printer(std::string fileName);
+	Printer(std::ostream &stream);
+	void setPrecision(int digits);
+	void addField(PrintField* field);
+	void operator()(const Phase& x, double t);
+	~Printer();
+};
+
 class BodyPrintField: public PrintField {
-private:
 	sizeT body;
 	std::vector<Coord> coordinates;
 
@@ -26,26 +40,11 @@ public:
 };
 
 class ConditionPrintField: public PrintField {
-private:
 	Condition* condition;
 
 public:
 	ConditionPrintField(Condition* condition);
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
-};
-
-class Printer {
-public:
-	std::vector<PrintField*> fields;
-
-	Printer(std::ostream &stream);
-
-	void addField(PrintField* field);
-
-	void operator()(const Phase& x, double t);
-
-private:
-	std::ostream* stream;
 };
 
 #endif /* PRINTER_HPP */

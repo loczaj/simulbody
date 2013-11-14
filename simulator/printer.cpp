@@ -2,8 +2,18 @@
 
 // Printer
 
+Printer::Printer(std::string fileName) {
+	fileStream = new std::ofstream(fileName, std::ofstream::out);
+	stream = fileStream;
+}
+
 Printer::Printer(std::ostream &stream)
 		: stream(&stream) {
+}
+
+void Printer::setPrecision(int digits) {
+	if (stream != nullptr)
+		stream->precision(digits);
 }
 
 void Printer::addField(PrintField* field) {
@@ -18,6 +28,13 @@ void Printer::operator()(const Phase& p, double t) {
 			*stream << "\t";
 	}
 	*stream << std::endl;
+}
+
+Printer::~Printer() {
+	if (fileStream != nullptr) {
+		fileStream->close();
+		fileStream = nullptr;
+	}
 }
 
 // Fields
