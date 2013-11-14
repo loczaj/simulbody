@@ -38,6 +38,7 @@ int main(int argc, char* atgv[]) {
 	print.addField(new BodyPrintField(apollo, { Coord::x, Coord::y }));
 	print.addField(new ConditionPrintField(&cond));
 
+	std::cout.precision(10);
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
 	runge_kutta4_classic<Phase> stepper;
