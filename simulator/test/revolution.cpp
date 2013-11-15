@@ -41,11 +41,12 @@ int main(int argc, char* atgv[]) {
 	std::cout.precision(10);
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
-	runge_kutta4_classic<Phase> stepper;
-	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
+	runge_kutta_dopri5<Phase> stepper;
+	auto cstepper = make_controlled(1e-20, 1e-20, stepper);
+	Simulator<decltype(cstepper)> simulator(cstepper, &bbsystem);
 	simulator.setPrinter(&print);
 
-	int steps = simulator.simulate(0.0, 10.0, 0.001);
+	int steps = simulator.simulateAdaptive(0.0, 10.0, 0.00001);
 
 	stream.close();
 	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
