@@ -45,7 +45,8 @@ public:
 					observer);
 			startTime += roundTime;
 		}
-		return startTime - roundTime;
+
+		return startTime - (maxRounds + 1) * roundTime;
 	}
 
 };
