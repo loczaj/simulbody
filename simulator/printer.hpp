@@ -9,6 +9,7 @@
 #include "phase.hpp"
 #include "condition.hpp"
 
+// *** PrintField ***
 class PrintField {
 public:
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) = 0;
@@ -16,6 +17,7 @@ public:
 	}
 };
 
+// *** Printer ***
 class Printer {
 	std::vector<PrintField*> fields;
 	std::ostream* stream = nullptr;
@@ -33,26 +35,87 @@ public:
 	~Printer();
 };
 
+// *** BodyPrintField ***
 class BodyPrintField: public PrintField {
 	sizeT body;
 	std::vector<Coord> coordinates;
 
 public:
-	BodyPrintField(sizeT body, std::initializer_list<Coord> coords);
-	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+	BodyPrintField(sizeT body, std::initializer_list<Coord> coords)
+			: body(body) {
+		for (Coord c : coords) {
+			coordinates.push_back(c);
+		}
+	}
+
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		for (sizeT i = 0; i < coordinates.size(); i++) {
+
+			switch (coordinates[i]) {
+			case Coord::x:
+				stream << phase.getBodyPosition(body).x;
+				break;
+			case Coord::y:
+				stream << phase.getBodyPosition(body).y;
+				break;
+			case Coord::z:
+				stream << phase.getBodyPosition(body).z;
+				break;
+			case Coord::vx:
+				stream << phase.getBodyVelocity(body).x;
+				break;
+			case Coord::vy:
+				stream << phase.getBodyVelocity(body).y;
+				break;
+			case Coord::vz:
+				stream << phase.getBodyVelocity(body).z;
+			}
+
+			if (i < coordinates.size() - 1)
+				stream << "\t";
+		}
+	}
 };
 
+// *** TimePrintField ***
 class TimePrintField: public PrintField {
 public:
-	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		stream << time;
+	}
 };
 
+// *** DistancePrintField ***
+class DistancePrintField: public PrintField {
+	sizeT earth;
+	sizeT moon;
+
+public:
+	DistancePrintField(sizeT earth, sizeT moon)
+			: earth(earth), moon(moon) {
+	}
+
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		stream << phase.getBodyPosition(earth).distance(phase.getBodyPosition(moon));
+	}
+};
+
+// *** ConditionPrintField ***
 class ConditionPrintField: public PrintField {
 	Condition* condition;
 
 public:
-	ConditionPrintField(Condition* condition);
-	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+	ConditionPrintField(Condition* condition)
+			: condition(condition) {
+	}
+
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		if (condition->evaluate(phase, time)) {
+			stream << "1";
+		} else {
+			stream << "0";
+		}
+	}
 };
 
 #endif /* PRINTER_HPP */

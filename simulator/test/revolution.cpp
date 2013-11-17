@@ -26,14 +26,18 @@ int main(int argc, char* atgv[]) {
 
 	bbsystem << gravityEM << gravityEI << gravityEA << gravityMA << gravityMI << gravityIA;
 
-	DistanceCondition cond(earth, apollo, 1.0);
+	DistanceCondition condEA(earth, apollo, 1.0);
+	DistanceCondition condMI(moon, iss, 1.0);
 
 	Printer print("orbits.csv");
 	print.addField(new BodyPrintField(earth, { Coord::x, Coord::y }));
 	print.addField(new BodyPrintField(moon, { Coord::x, Coord::y }));
 	print.addField(new BodyPrintField(iss, { Coord::x, Coord::y }));
 	print.addField(new BodyPrintField(apollo, { Coord::x, Coord::y }));
-	print.addField(new ConditionPrintField(&cond));
+	print.addField(new DistancePrintField(earth, apollo));
+	print.addField(new ConditionPrintField(&condEA));
+	print.addField(new DistancePrintField(moon, iss));
+	print.addField(new TimePrintField());
 
 	std::cout.precision(10);
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
@@ -43,10 +47,10 @@ int main(int argc, char* atgv[]) {
 	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
 	simulator.setPrinter(print);
 
-	int steps = simulator.simulate(0.0, 10.0, 0.001);
+	double stopTime = simulator.simulate(0.0, 1.0, 0.001, condMI);
 
 	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
-	std::cout << "N=" << steps << std::endl;
+	std::cout << "t=" << stopTime << std::endl;
 
 	return 0;
 }
