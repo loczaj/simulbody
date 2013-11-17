@@ -74,6 +74,10 @@ void BodyPrintField::writeField(const Phase &p, const double &t, std::ostream &s
 	}
 }
 
+void TimePrintField::writeField(const Phase &p, const double &t, std::ostream &s) {
+	s << t;
+}
+
 ConditionPrintField::ConditionPrintField(Condition* condition)
 		: condition(condition) {
 }

@@ -39,6 +39,11 @@ public:
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
 };
 
+class TimePrintField: public PrintField {
+public:
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+};
+
 class ConditionPrintField: public PrintField {
 	Condition* condition;
 
