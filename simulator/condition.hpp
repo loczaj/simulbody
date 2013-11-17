@@ -28,9 +28,9 @@ public:
 
 	virtual bool evaluate(const Phase &phase, const double &time) override {
 		if (moon < 0) {
-			return phase.getBodyPosition(earth).distance(reference) < distance;
+			return phase.getBodyPosition(earth).distance(reference) > distance;
 		} else {
-			return phase.getBodyPosition(earth).distance(phase.getBodyPosition(moon)) < distance;
+			return phase.getBodyPosition(earth).distance(phase.getBodyPosition(moon)) > distance;
 		}
 	}
 };
