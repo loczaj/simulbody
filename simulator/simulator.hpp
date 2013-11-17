@@ -23,9 +23,8 @@ public:
 			: stepper(stepper), bbsystem(sys) {
 	}
 
-	void setPrinter(Printer &printer) {
-		typename unwrap_reference<Printer>::type &obs = printer;
-		this->observer = obs;
+	void setPrinter(const Printer &printer) {
+		this->observer = printer;
 	}
 
 	void operator()(const Phase &x, Phase &dxdt, const double t) {
@@ -36,7 +35,7 @@ public:
 		return integrate_adaptive(stepper, *this, bbsystem->phase, startTime, endTime, dt, observer);
 	}
 
-	int simulate(double startTime, double checkConditionTime, double dt, Condition &stopCondition,
+	int simulate(double startTime, double checkConditionTime, double dt, const Condition &stopCondition,
 			int maxPasses = 100) {
 		return 0;
 	}
