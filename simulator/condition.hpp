@@ -5,7 +5,7 @@
 
 class Condition {
 public:
-	virtual bool evaluate(const Phase &phase, const double &time) = 0;
+	virtual bool evaluate(const Phase &phase, const double &time) const = 0;
 	virtual ~Condition() {
 	}
 };
@@ -26,7 +26,7 @@ public:
 			: earth(body), reference(reference), distance(distance) {
 	}
 
-	virtual bool evaluate(const Phase &phase, const double &time) override {
+	virtual bool evaluate(const Phase &phase, const double &time) const override {
 		if (moon < 0) {
 			return phase.getBodyPosition(earth).distance(reference) > distance;
 		} else {
