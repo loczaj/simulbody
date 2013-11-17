@@ -25,6 +25,9 @@ public:
 
 	double getBodyMass(sizeT body) const;
 	double getBodyKineticEnergy(sizeT body) const;
+	double getBodyKineticEnergyReferenced(sizeT body, sizeT reference) const;
+	double getBodyPotentialEnergy(sizeT body) const;
+	double getPairPotentialEnergy(sizeT earth, sizeT moon) const;
 	vector3D getBodyPosition(sizeT body) const;
 	vector3D getBodyVelocity(sizeT body) const;
 	vector3D getBodyImpulse(sizeT body) const;

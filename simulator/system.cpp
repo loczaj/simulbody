@@ -35,6 +35,32 @@ double System::getBodyKineticEnergy(sizeT body) const {
 	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
 }
 
+double System::getBodyKineticEnergyReferenced(sizeT body, sizeT reference) const {
+	vector3D v = getBodyVelocity(body) - getBodyVelocity(reference);
+	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
+}
+
+double System::getBodyPotentialEnergy(sizeT body) const {
+	double energy = 0.0;
+	for (Interaction* interaction : interactions) {
+		if (interaction->earth == body || interaction->moon == body) {
+			energy += interaction->getEnergy(phase);
+		}
+	}
+	return energy;
+}
+
+double System::getPairPotentialEnergy(sizeT earth, sizeT moon) const {
+	double energy = 0.0;
+	for (Interaction* interaction : interactions) {
+		if ((interaction->earth == earth && interaction->moon == moon)
+				|| (interaction->earth == moon && interaction->moon == earth)) {
+			energy += interaction->getEnergy(phase);
+		}
+	}
+	return energy;
+}
+
 vector3D System::getBodyPosition(sizeT body) const {
 	return phase.getBodyPosition(body);
 }

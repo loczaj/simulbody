@@ -5,6 +5,8 @@
 
 class Interaction {
 
+	friend class System;
+
 private:
 
 	sizeT earth;
