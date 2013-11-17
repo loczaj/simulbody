@@ -11,6 +11,12 @@ Printer::Printer(std::ostream &stream)
 		: stream(&stream) {
 }
 
+Printer::Printer(const Printer &other) {
+	fields = other.fields;
+	stream = other.stream;
+	fileStream = nullptr;
+}
+
 void Printer::setPrecision(int digits) {
 	if (stream != nullptr)
 		stream->precision(digits);
@@ -33,6 +39,7 @@ void Printer::operator()(const Phase& p, double t) {
 Printer::~Printer() {
 	if (fileStream != nullptr) {
 		fileStream->close();
+		delete fileStream;
 		fileStream = nullptr;
 	}
 }

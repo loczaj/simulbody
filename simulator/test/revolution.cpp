@@ -28,10 +28,7 @@ int main(int argc, char* atgv[]) {
 
 	DistanceCondition cond(earth, apollo, 1.0);
 
-	std::ofstream stream;
-	stream.open("orbits.csv", std::ofstream::out);
-
-	Printer print(stream);
+	Printer print("orbits.csv");
 	print.addField(new BodyPrintField(earth, { Coord::x, Coord::y }));
 	print.addField(new BodyPrintField(moon, { Coord::x, Coord::y }));
 	print.addField(new BodyPrintField(iss, { Coord::x, Coord::y }));
@@ -41,14 +38,13 @@ int main(int argc, char* atgv[]) {
 	std::cout.precision(10);
 	std::cout << "E0=" << bbsystem.getSystemEnergy() << std::endl;
 
-	runge_kutta_dopri5<Phase> stepper;
-	auto cstepper = make_controlled(1e-20, 1e-20, stepper);
-	Simulator<decltype(cstepper)> simulator(cstepper, &bbsystem);
-	simulator.setPrinter(&print);
+	runge_kutta4_classic<Phase> stepper;
+	//auto cstepper = make_controlled(1e-20, 1e-20, stepper);
+	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
+	simulator.setPrinter(print);
 
-	int steps = simulator.simulateAdaptive(0.0, 10.0, 0.00001);
+	int steps = simulator.simulate(0.0, 10.0, 0.001);
 
-	stream.close();
 	std::cout << "En=" << bbsystem.getSystemEnergy() << std::endl;
 	std::cout << "N=" << steps << std::endl;
 

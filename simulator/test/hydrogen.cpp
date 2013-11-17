@@ -25,7 +25,7 @@ int main(int argc, char* atgv[]) {
 
 	runge_kutta4_classic<Phase> stepper;
 	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
-	simulator.setPrinter(&printer);
+	simulator.setPrinter(printer);
 
 	int steps = simulator.simulate(0.0, 10.0, 0.001);
 

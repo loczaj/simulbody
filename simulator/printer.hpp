@@ -24,6 +24,9 @@ class Printer {
 public:
 	Printer(std::string fileName);
 	Printer(std::ostream &stream);
+	Printer(const Printer &other);
+	Printer& operator=(const Printer &rhs) = delete;
+
 	void setPrecision(int digits);
 	void addField(PrintField* field);
 	void operator()(const Phase& x, double t);
