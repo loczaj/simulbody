@@ -3,9 +3,13 @@
 
 #include <boost/numeric/odeint.hpp>
 
+#include "phase.hpp"
+#include "interaction.hpp"
 #include "condition.hpp"
 #include "printer.hpp"
 #include "system.hpp"
+#include "interactions/coulomb.hpp"
+#include "interactions/gravity.hpp"
 
 using namespace boost::numeric::odeint;
 
