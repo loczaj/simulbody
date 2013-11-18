@@ -1,17 +1,17 @@
-lib bohrbiter
+lib simulbody
     : phase.cpp interaction.cpp system.cpp printer.cpp interactions/coulomb.cpp interactions/gravity.cpp
     : <define>BOOST_ALL_NO_LIB=1
     : <cxxflags>-std=c++11
     ;
     
 exe revolution
-    : test/revolution.cpp .//bohrbiter
+    : test/revolution.cpp .//simulbody
     : <define>BOOST_ALL_NO_LIB=1
     : <cxxflags>-std=c++11
     ;
 
 exe hydrogen
-    : test/hydrogen.cpp .//bohrbiter
+    : test/hydrogen.cpp .//simulbody
     : <define>BOOST_ALL_NO_LIB=1
     : <cxxflags>-std=c++11
     ;
