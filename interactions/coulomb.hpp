@@ -4,6 +4,8 @@
 #include <math.h>
 #include "../interaction.hpp"
 
+namespace simulbody {
+
 class CoulombInteraction: public Interaction {
 
 private:
@@ -36,5 +38,7 @@ public:
 	virtual ~CoulombInteraction() override {
 	}
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* COULOMB_HPP */

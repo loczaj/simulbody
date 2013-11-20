@@ -3,6 +3,8 @@
 
 #include "system.hpp"
 
+namespace simulbody {
+
 identifier System::createBody(double mass) {
 	identifier body = phase.createBody();
 
@@ -163,3 +165,6 @@ System& System::operator<<(Interaction *interaction) {
 	this->addInteraction(interaction);
 	return *this;
 }
+
+} /* NAMESPACE SIMULBODY */
+

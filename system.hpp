@@ -7,6 +7,8 @@
 #include "interaction.hpp"
 #include "phase.hpp"
 
+namespace simulbody {
+
 class System {
 
 private:
@@ -49,5 +51,7 @@ public:
 
 	System& operator<<(Interaction *interaction);
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif // SYSTEM_HPP

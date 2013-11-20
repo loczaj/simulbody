@@ -13,6 +13,8 @@
 
 using namespace boost::numeric::odeint;
 
+namespace simulbody {
+
 template<class StepperT>
 class Simulator {
 private:
@@ -54,5 +56,7 @@ public:
 	}
 
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* SIMULATOR_HPP */

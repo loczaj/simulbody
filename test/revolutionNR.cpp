@@ -5,6 +5,8 @@
 #include "../printer.hpp"
 #include "../interactions/gravity.hpp"
 
+using namespace simulbody;
+
 Phase F1(24), F2(24), F3(24), F4(24);
 Phase xtemp(24);
 

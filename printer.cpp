@@ -1,5 +1,7 @@
 #include "printer.hpp"
 
+namespace simulbody {
+
 Printer::Printer(std::string fileName) {
 	fileStream = new std::ofstream(fileName, std::ofstream::out);
 	stream = fileStream;
@@ -41,3 +43,5 @@ Printer::~Printer() {
 		fileStream = nullptr;
 	}
 }
+
+} /* NAMESPACE SIMULBODY */

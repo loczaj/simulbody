@@ -3,6 +3,8 @@
 
 #include <ostream>
 
+namespace simulbody {
+
 struct vector3D {
 	double x, y, z;
 
@@ -103,5 +105,7 @@ struct vector3D {
 inline std::ostream& operator<<(std::ostream &out, const vector3D &v) {
 	return out << v.x << "\t" << v.y << "\t" << v.z << "\t";
 }
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* VECTOR3D_HPP */

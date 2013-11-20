@@ -6,6 +6,8 @@
 
 #include "vector3d.hpp"
 
+namespace simulbody {
+
 typedef std::vector<double>::size_type identifier;
 typedef std::vector<double>::size_type sizeT;
 
@@ -46,31 +48,32 @@ public:
 	void setBodyVelocity(identifier body, const vector3D velocity);
 
 };
+} /* NAMESPACE SIMULBODY */
 
 // Phase bindings
 namespace boost {
 namespace numeric {
 namespace odeint {
 
-// Declare resizeability
+// Declare ability to resize
 template<>
-struct is_resizeable<Phase> {
+struct is_resizeable<simulbody::Phase> {
 	typedef boost::true_type type;
 	const static bool value = type::value;
 };
 
 // Define how to check size
 template<>
-struct same_size_impl<Phase, Phase> {
-	static bool same_size(const Phase &v1, const Phase &v2) {
+struct same_size_impl<simulbody::Phase, simulbody::Phase> {
+	static bool same_size(const simulbody::Phase &v1, const simulbody::Phase &v2) {
 		return v1.size() == v2.size();
 	}
 };
 
 // Define how to resize
 template<>
-struct resize_impl<Phase, Phase> {
-	static void resize(Phase &v1, const Phase &v2) {
+struct resize_impl<simulbody::Phase, simulbody::Phase> {
+	static void resize(simulbody::Phase &v1, const simulbody::Phase &v2) {
 		v1.resize(v2.size());
 	}
 };

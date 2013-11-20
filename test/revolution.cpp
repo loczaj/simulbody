@@ -7,6 +7,8 @@
 #include "../condition.hpp"
 #include "../interactions/gravity.hpp"
 
+using namespace simulbody;
+
 int main(int argc, char* atgv[]) {
 	System bbsystem;
 

@@ -2,6 +2,8 @@
 
 #include "phase.hpp"
 
+namespace simulbody {
+
 Phase::Phase() {
 	numberOfBodies = 0;
 }
@@ -93,3 +95,6 @@ void Phase::devideForcesByMass(const Phase &x, const std::vector<double> &masses
 		x.forces[3 * body + Coord::z] /= masses[body];
 	}
 }
+
+} /* NAMESPACE SIMULBODY */
+

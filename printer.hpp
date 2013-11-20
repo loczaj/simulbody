@@ -9,6 +9,8 @@
 #include "phase.hpp"
 #include "condition.hpp"
 
+namespace simulbody {
+
 // *** PrintField ***
 class PrintField {
 public:
@@ -117,5 +119,7 @@ public:
 		}
 	}
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* PRINTER_HPP */

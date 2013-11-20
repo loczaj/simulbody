@@ -3,6 +3,8 @@
 
 #include "phase.hpp"
 
+namespace simulbody {
+
 class Interaction {
 
 	friend class System;
@@ -36,5 +38,7 @@ public:
 
 	virtual ~Interaction();
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif // INTERACTION_HPP

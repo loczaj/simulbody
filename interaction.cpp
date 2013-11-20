@@ -2,6 +2,8 @@
 
 #include "interaction.hpp"
 
+namespace simulbody {
+
 void Interaction::setBodies(identifier earth, identifier moon) {
 	this->earth = earth;
 	this->moon = moon;
@@ -27,3 +29,5 @@ void Interaction::applyFOnEarth(const Phase &phase) {
 
 Interaction::~Interaction() {
 }
+
+} /* NAMESPACE SIMULBODY */

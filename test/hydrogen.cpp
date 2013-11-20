@@ -5,6 +5,8 @@
 #include "../simulator.hpp"
 #include "../interactions/coulomb.hpp"
 
+using namespace simulbody;
+
 int main(int argc, char* atgv[]) {
 	System bbsystem;
 

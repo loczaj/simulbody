@@ -3,6 +3,8 @@
 
 #include "phase.hpp"
 
+namespace simulbody {
+
 class Condition {
 public:
 	virtual bool evaluate(const Phase &phase, const double &time) const = 0;
@@ -34,5 +36,7 @@ public:
 		}
 	}
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* CONDITION_HPP */

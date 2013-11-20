@@ -4,6 +4,8 @@
 #include <math.h>
 #include "../interaction.hpp"
 
+namespace simulbody {
+
 class GravitationalInteraction: public Interaction {
 
 private:
@@ -36,5 +38,7 @@ public:
 	virtual ~GravitationalInteraction() override {
 	}
 };
+
+} /* NAMESPACE SIMULBODY */
 
 #endif /* GRAVITY_HPP */
