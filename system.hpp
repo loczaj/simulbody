@@ -23,6 +23,7 @@ public:
 
 	identifier createBody(double mass);
 	identifier createBody(double mass, vector3D position, vector3D velocity);
+	std::vector<identifier> getBodies() const;
 	sizeT getNumberOfBodies() const;
 
 	double getBodyMass(identifier body) const;
@@ -33,6 +34,10 @@ public:
 	vector3D getBodyPosition(identifier body) const;
 	vector3D getBodyVelocity(identifier body) const;
 	vector3D getBodyImpulse(identifier body) const;
+
+	vector3D getCenterOfMass(std::vector<identifier> bodies) const;
+	vector3D getImpulse(std::vector<identifier> bodies) const;
+	double getMass(std::vector<identifier> bodies) const;
 
 	void setBodyMass(identifier body, double mass);
 	void setBodyPosition(identifier body, vector3D position);

@@ -23,6 +23,14 @@ identifier System::createBody(double mass, vector3D position, vector3D velocity)
 	return body;
 }
 
+std::vector<identifier> System::getBodies() const {
+	std::vector<identifier> result;
+	for (identifier id = 0; id < getNumberOfBodies(); id++) {
+		result.push_back(id);
+	}
+	return result;
+}
+
 sizeT System::getNumberOfBodies() const {
 	return phase.numberOfBodies;
 }
@@ -76,6 +84,34 @@ vector3D System::getBodyImpulse(identifier body) const {
 	return velocity * getBodyMass(body);
 }
 
+vector3D System::getCenterOfMass(std::vector<identifier> bodies) const {
+	vector3D centerOfMass;
+	double mass = 0.0;
+	for (identifier body : bodies) {
+		centerOfMass += getBodyPosition(body) * getBodyMass(body);
+		mass += getBodyMass(body);
+	}
+
+	centerOfMass /= mass;
+	return centerOfMass;
+}
+
+vector3D System::getImpulse(std::vector<identifier> bodies) const {
+	vector3D impulse;
+	for (identifier body : bodies) {
+		impulse += getBodyImpulse(body);
+	}
+	return impulse;
+}
+
+double System::getMass(std::vector<identifier> bodies) const {
+	double mass = 0.0;
+	for (identifier body : bodies) {
+		mass += getBodyMass(body);
+	}
+	return mass;
+}
+
 void System::setBodyMass(identifier body, double mass) {
 	assert(body < masses.size());
 	masses[body] = mass;
@@ -90,18 +126,13 @@ void System::setBodyVelocity(identifier body, vector3D velocity) {
 }
 
 double System::getSystemMass() const {
-	double mass = 0.0;
-	for (identifier i = 0; i < getNumberOfBodies(); i++) {
-		mass += getBodyMass(i);
-	}
-
-	return mass;
+	return getMass(getBodies());
 }
 
 double System::getSystemEnergy() const {
 	double energy = 0.0;
-	for (identifier i = 0; i < getNumberOfBodies(); i++) {
-		energy += getBodyKineticEnergy(i);
+	for (identifier body : getBodies()) {
+		energy += getBodyKineticEnergy(body);
 	}
 	for (Interaction* interaction : interactions) {
 		energy += interaction->getEnergy(phase);
@@ -111,31 +142,20 @@ double System::getSystemEnergy() const {
 }
 
 vector3D System::getSystemCenterOfMass() const {
-	vector3D centerOfMass;
-	for (size_t i = 0; i < getNumberOfBodies(); i++) {
-		centerOfMass += getBodyPosition(i) * getBodyMass(i);
-	}
-
-	centerOfMass /= getSystemMass();
-	return centerOfMass;
+	return getCenterOfMass(getBodies());
 }
 
 vector3D System::getSystemImpulse() const {
-	vector3D impulse;
-	for (size_t i = 0; i < getNumberOfBodies(); i++) {
-		impulse += getBodyImpulse(i);
-	}
-
-	return impulse;
+	return getImpulse(getBodies());
 }
 
 std::pair<vector3D, vector3D> System::convertToCenterOfMassSystem() {
 	vector3D systemCenterOfMass = getSystemCenterOfMass();
 	vector3D systemVelocity = getSystemImpulse() / getSystemMass();
 
-	for (size_t i = 0; i < getNumberOfBodies(); i++) {
-		setBodyPosition(i, getBodyPosition(i) - systemCenterOfMass);
-		setBodyVelocity(i, getBodyVelocity(i) - systemVelocity);
+	for (identifier body : getBodies()) {
+		setBodyPosition(body, getBodyPosition(body) - systemCenterOfMass);
+		setBodyVelocity(body, getBodyVelocity(body) - systemVelocity);
 	}
 
 	std::pair<vector3D, vector3D> center(systemCenterOfMass, systemVelocity);
