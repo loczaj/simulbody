@@ -10,7 +10,7 @@ private:
 	double factor = 0.0;
 
 public:
-	GravitationalInteraction(double gammaM1M2, sizeT earth, sizeT moon);
+	GravitationalInteraction(double gammaM1M2, identifier earth, identifier moon);
 
 	virtual void apply(const Phase &phase, const double t) override;
 

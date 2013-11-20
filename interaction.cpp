@@ -2,7 +2,7 @@
 
 #include "interaction.hpp"
 
-void Interaction::setBodies(sizeT earth, sizeT moon) {
+void Interaction::setBodies(identifier earth, identifier moon) {
 	this->earth = earth;
 	this->moon = moon;
 }

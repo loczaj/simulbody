@@ -3,8 +3,8 @@
 
 #include "system.hpp"
 
-sizeT System::createBody(double mass) {
-	sizeT body = phase.createBody();
+identifier System::createBody(double mass) {
+	identifier body = phase.createBody();
 
 	masses.resize(body + 1);
 	masses[body] = mass;
@@ -12,8 +12,8 @@ sizeT System::createBody(double mass) {
 	return body;
 }
 
-sizeT System::createBody(double mass, vector3D position, vector3D velocity) {
-	sizeT body = createBody(mass);
+identifier System::createBody(double mass, vector3D position, vector3D velocity) {
+	identifier body = createBody(mass);
 
 	setBodyPosition(body, position);
 	setBodyVelocity(body, velocity);
@@ -21,26 +21,26 @@ sizeT System::createBody(double mass, vector3D position, vector3D velocity) {
 	return body;
 }
 
-sizeT System::getNumberOfBodies() const {
+identifier System::getNumberOfBodies() const {
 	return phase.numberOfBodies;
 }
 
-double System::getBodyMass(sizeT body) const {
+double System::getBodyMass(identifier body) const {
 	assert(body < masses.size());
 	return masses[body];
 }
 
-double System::getBodyKineticEnergy(sizeT body) const {
+double System::getBodyKineticEnergy(identifier body) const {
 	vector3D v = getBodyVelocity(body);
 	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
 }
 
-double System::getBodyKineticEnergyReferenced(sizeT body, sizeT reference) const {
+double System::getBodyKineticEnergyReferenced(identifier body, identifier reference) const {
 	vector3D v = getBodyVelocity(body) - getBodyVelocity(reference);
 	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
 }
 
-double System::getBodyPotentialEnergy(sizeT body) const {
+double System::getBodyPotentialEnergy(identifier body) const {
 	double energy = 0.0;
 	for (Interaction* interaction : interactions) {
 		if (interaction->earth == body || interaction->moon == body) {
@@ -50,7 +50,7 @@ double System::getBodyPotentialEnergy(sizeT body) const {
 	return energy;
 }
 
-double System::getPairPotentialEnergy(sizeT earth, sizeT moon) const {
+double System::getPairPotentialEnergy(identifier earth, identifier moon) const {
 	double energy = 0.0;
 	for (Interaction* interaction : interactions) {
 		if ((interaction->earth == earth && interaction->moon == moon)
@@ -61,35 +61,35 @@ double System::getPairPotentialEnergy(sizeT earth, sizeT moon) const {
 	return energy;
 }
 
-vector3D System::getBodyPosition(sizeT body) const {
+vector3D System::getBodyPosition(identifier body) const {
 	return phase.getBodyPosition(body);
 }
 
-vector3D System::getBodyVelocity(sizeT body) const {
+vector3D System::getBodyVelocity(identifier body) const {
 	return phase.getBodyVelocity(body);
 }
 
-vector3D System::getBodyImpulse(sizeT body) const {
+vector3D System::getBodyImpulse(identifier body) const {
 	vector3D velocity = getBodyVelocity(body);
 	return velocity * getBodyMass(body);
 }
 
-void System::setBodyMass(sizeT body, double mass) {
+void System::setBodyMass(identifier body, double mass) {
 	assert(body < masses.size());
 	masses[body] = mass;
 }
 
-void System::setBodyPosition(sizeT body, vector3D position) {
+void System::setBodyPosition(identifier body, vector3D position) {
 	phase.setBodyPosition(body, position);
 }
 
-void System::setBodyVelocity(sizeT body, vector3D velocity) {
+void System::setBodyVelocity(identifier body, vector3D velocity) {
 	phase.setBodyVelocity(body, velocity);
 }
 
 double System::getSystemMass() const {
 	double mass = 0.0;
-	for (sizeT i = 0; i < getNumberOfBodies(); i++) {
+	for (identifier i = 0; i < getNumberOfBodies(); i++) {
 		mass += getBodyMass(i);
 	}
 
@@ -98,7 +98,7 @@ double System::getSystemMass() const {
 
 double System::getSystemEnergy() const {
 	double energy = 0.0;
-	for (sizeT i = 0; i < getNumberOfBodies(); i++) {
+	for (identifier i = 0; i < getNumberOfBodies(); i++) {
 		energy += getBodyKineticEnergy(i);
 	}
 	for (Interaction* interaction : interactions) {

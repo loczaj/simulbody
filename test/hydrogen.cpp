@@ -8,8 +8,8 @@
 int main(int argc, char* atgv[]) {
 	System bbsystem;
 
-	sizeT proton = bbsystem.createBody(1836.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 0.0, 0.0));
-	sizeT electron = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
+	identifier proton = bbsystem.createBody(1836.0, vector3D(0.0, 0.0, 0.0), vector3D(0.0, 0.0, 0.0));
+	identifier electron = bbsystem.createBody(1.0, vector3D(1.0, 0.0, 0.0), vector3D(0.0, 1.0, 0.0));
 
 	bbsystem << new CoulombInteraction(-1.0, proton, electron);
 

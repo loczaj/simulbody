@@ -1,7 +1,7 @@
 #include <math.h>
 #include "coulomb.hpp"
 
-CoulombInteraction::CoulombInteraction(double q1q2, sizeT earth, sizeT moon) {
+CoulombInteraction::CoulombInteraction(double q1q2, identifier earth, identifier moon) {
 	this->q1q2 = q1q2;
 	this->setBodies(earth, moon);
 }

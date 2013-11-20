@@ -19,22 +19,22 @@ public:
 
 	Phase phase;
 
-	sizeT createBody(double mass);
-	sizeT createBody(double mass, vector3D position, vector3D velocity);
-	sizeT getNumberOfBodies() const;
+	identifier createBody(double mass);
+	identifier createBody(double mass, vector3D position, vector3D velocity);
+	identifier getNumberOfBodies() const;
 
-	double getBodyMass(sizeT body) const;
-	double getBodyKineticEnergy(sizeT body) const;
-	double getBodyKineticEnergyReferenced(sizeT body, sizeT reference) const;
-	double getBodyPotentialEnergy(sizeT body) const;
-	double getPairPotentialEnergy(sizeT earth, sizeT moon) const;
-	vector3D getBodyPosition(sizeT body) const;
-	vector3D getBodyVelocity(sizeT body) const;
-	vector3D getBodyImpulse(sizeT body) const;
+	double getBodyMass(identifier body) const;
+	double getBodyKineticEnergy(identifier body) const;
+	double getBodyKineticEnergyReferenced(identifier body, identifier reference) const;
+	double getBodyPotentialEnergy(identifier body) const;
+	double getPairPotentialEnergy(identifier earth, identifier moon) const;
+	vector3D getBodyPosition(identifier body) const;
+	vector3D getBodyVelocity(identifier body) const;
+	vector3D getBodyImpulse(identifier body) const;
 
-	void setBodyMass(sizeT body, double mass);
-	void setBodyPosition(sizeT body, vector3D position);
-	void setBodyVelocity(sizeT body, vector3D velocity);
+	void setBodyMass(identifier body, double mass);
+	void setBodyPosition(identifier body, vector3D position);
+	void setBodyVelocity(identifier body, vector3D velocity);
 
 	double getSystemMass() const;
 	double getSystemEnergy() const;

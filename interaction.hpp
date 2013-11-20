@@ -9,8 +9,8 @@ class Interaction {
 
 private:
 
-	sizeT earth;
-	sizeT moon;
+	identifier earth;
+	identifier moon;
 
 protected:
 
@@ -28,7 +28,7 @@ protected:
 
 public:
 
-	virtual void setBodies(sizeT earth, sizeT moon);
+	virtual void setBodies(identifier earth, identifier moon);
 
 	virtual void apply(const Phase &phase, const double t) = 0;
 

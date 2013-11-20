@@ -10,7 +10,7 @@ private:
 	double factor = 0.0;
 
 public:
-	CoulombInteraction(double q1q2, sizeT earth, sizeT moon);
+	CoulombInteraction(double q1q2, identifier earth, identifier moon);
 
 	virtual void apply(const Phase &phase, const double t) override;
 

@@ -12,17 +12,17 @@ public:
 
 class DistanceCondition: public Condition {
 private:
-	sizeT earth;
-	sizeT moon = -1;
+	identifier earth;
+	identifier moon = -1;
 	vector3D reference;
 	double distance;
 
 public:
-	DistanceCondition(sizeT earth, sizeT moon, double distance)
+	DistanceCondition(identifier earth, identifier moon, double distance)
 			: earth(earth), moon(moon), distance(distance) {
 	}
 
-	DistanceCondition(sizeT body, vector3D reference, double distance)
+	DistanceCondition(identifier body, vector3D reference, double distance)
 			: earth(body), reference(reference), distance(distance) {
 	}
 

@@ -25,7 +25,7 @@ void Printer::addField(PrintField* field) {
 }
 
 void Printer::operator()(const Phase& p, double t) {
-	for (sizeT i = 0; i < fields.size(); i++) {
+	for (identifier i = 0; i < fields.size(); i++) {
 		fields[i]->writeField(p, t, *stream);
 
 		if (i < fields.size() - 1)

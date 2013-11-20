@@ -1,7 +1,7 @@
 #include <math.h>
 #include "gravity.hpp"
 
-GravitationalInteraction::GravitationalInteraction(double gammaM1M2, sizeT earth, sizeT moon) {
+GravitationalInteraction::GravitationalInteraction(double gammaM1M2, identifier earth, identifier moon) {
 	this->gammaM1M2 = gammaM1M2;
 	this->setBodies(earth, moon);
 }

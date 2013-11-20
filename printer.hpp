@@ -37,11 +37,11 @@ public:
 
 // *** BodyPrintField ***
 class BodyPrintField: public PrintField {
-	sizeT body;
+	identifier body;
 	std::vector<Coord> coordinates;
 
 public:
-	BodyPrintField(sizeT body, std::initializer_list<Coord> coords)
+	BodyPrintField(identifier body, std::initializer_list<Coord> coords)
 			: body(body) {
 		for (Coord c : coords) {
 			coordinates.push_back(c);
@@ -49,7 +49,7 @@ public:
 	}
 
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
-		for (sizeT i = 0; i < coordinates.size(); i++) {
+		for (identifier i = 0; i < coordinates.size(); i++) {
 
 			switch (coordinates[i]) {
 			case Coord::x:
@@ -87,11 +87,11 @@ public:
 
 // *** DistancePrintField ***
 class DistancePrintField: public PrintField {
-	sizeT earth;
-	sizeT moon;
+	identifier earth;
+	identifier moon;
 
 public:
-	DistancePrintField(sizeT earth, sizeT moon)
+	DistancePrintField(identifier earth, identifier moon)
 			: earth(earth), moon(moon) {
 	}
 
