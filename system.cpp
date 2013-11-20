@@ -46,7 +46,11 @@ double System::getBodyKineticEnergy(identifier body) const {
 }
 
 double System::getBodyKineticEnergyReferenced(identifier body, identifier reference) const {
-	vector3D v = getBodyVelocity(body) - getBodyVelocity(reference);
+	return getBodyKineticEnergyReferenced(body, getBodyVelocity(reference));
+}
+
+double System::getBodyKineticEnergyReferenced(identifier body, vector3D referenceVelocity) const {
+	vector3D v = getBodyVelocity(body) - referenceVelocity;
 	return 0.5 * getBodyMass(body) * v.scalarProduct(v);
 }
 

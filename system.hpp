@@ -29,6 +29,7 @@ public:
 	double getBodyMass(identifier body) const;
 	double getBodyKineticEnergy(identifier body) const;
 	double getBodyKineticEnergyReferenced(identifier body, identifier reference) const;
+	double getBodyKineticEnergyReferenced(identifier body, vector3D referenceVelocity) const;
 	double getBodyPotentialEnergy(identifier body) const;
 	double getPairPotentialEnergy(identifier earth, identifier moon) const;
 	vector3D getBodyPosition(identifier body) const;
