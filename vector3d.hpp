@@ -92,6 +92,14 @@ struct vector3D {
 		return x * v2.x + y * v2.y + z * v2.z;
 	}
 
+	vector3D vectorProduct(const vector3D &v2) const {
+		vector3D product;
+		product.x = y * v2.z - v2.y * z;
+		product.y = z * v2.x - v2.z * x;
+		product.z = x * v2.y - v2.x * y;
+		return product;
+	}
+
 	double distance(const vector3D &v2) const {
 		return sqrt((x - v2.x) * (x - v2.x) + (y - v2.y) * (y - v2.y) + (z - v2.z) * (z - v2.z));
 	}

@@ -35,6 +35,7 @@ public:
 	vector3D getBodyPosition(identifier body) const;
 	vector3D getBodyVelocity(identifier body) const;
 	vector3D getBodyImpulse(identifier body) const;
+	vector3D getBodyAngularMomentum(identifier body, identifier reference) const;
 
 	vector3D getCenterOfMass(std::vector<identifier> bodies) const;
 	vector3D getImpulse(std::vector<identifier> bodies) const;

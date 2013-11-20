@@ -88,6 +88,12 @@ vector3D System::getBodyImpulse(identifier body) const {
 	return velocity * getBodyMass(body);
 }
 
+vector3D System::getBodyAngularMomentum(identifier body, identifier reference) const {
+	vector3D r = getBodyPosition(body) - getBodyPosition(reference);
+	vector3D v = getBodyVelocity(body) - getBodyVelocity(reference);
+	return r.vectorProduct(v) * getBodyMass(body);
+}
+
 vector3D System::getCenterOfMass(std::vector<identifier> bodies) const {
 	vector3D centerOfMass;
 	double mass = 0.0;
