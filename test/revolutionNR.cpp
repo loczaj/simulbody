@@ -17,13 +17,13 @@ void rungeKutta4(Phase &x, double t, double tau, System &sys) {
 	double half_tau = 0.5 * tau;
 	double t_half = t + half_tau;
 
-	for (identifier i = 0; i < x.size(); i++)
+	for (sizeT i = 0; i < x.size(); i++)
 		xtemp[i] = x[i] + half_tau * F1[i];
 
 	sys.derive(xtemp, F2, t_half);
 
 	//* Evaluate F3 = f( x+tau*F2/2, t+tau/2 ).
-	for (identifier i = 0; i < x.size(); i++)
+	for (sizeT i = 0; i < x.size(); i++)
 		xtemp[i] = x[i] + half_tau * F2[i];
 
 	sys.derive(xtemp, F3, t_half);
@@ -31,13 +31,13 @@ void rungeKutta4(Phase &x, double t, double tau, System &sys) {
 	//* Evaluate F4 = f( x+tau*F3, t+tau ).
 	double t_full = t + tau;
 
-	for (identifier i = 0; i < x.size(); i++)
+	for (sizeT i = 0; i < x.size(); i++)
 		xtemp[i] = x[i] + tau * F3[i];
 
 	sys.derive(xtemp, F4, t_full);
 
 	//* Return x(t+tau) computed from fourth-order R-K.
-	for (identifier i = 0; i < x.size(); i++)
+	for (sizeT i = 0; i < x.size(); i++)
 		x[i] += tau / 6. * (F1[i] + F4[i] + 2. * (F2[i] + F3[i]));
 
 }

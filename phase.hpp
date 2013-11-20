@@ -7,9 +7,10 @@
 #include "vector3d.hpp"
 
 typedef std::vector<double>::size_type identifier;
+typedef std::vector<double>::size_type sizeT;
 
 enum Coord
-	: identifier {
+	: sizeT {
 		x = 0, y = 1, z = 2, vx = 3, vy = 4, vz = 5
 };
 
@@ -20,7 +21,7 @@ class Phase: public std::vector<double> {
 
 private:
 
-	identifier numberOfBodies;
+	sizeT numberOfBodies;
 	mutable std::vector<double> forces;
 
 	identifier createBody();
@@ -35,8 +36,8 @@ private:
 public:
 
 	Phase();
-	Phase(identifier size);
-	void resize(identifier size);
+	Phase(sizeT size);
+	void resize(sizeT size);
 
 	vector3D getBodyPosition(identifier body) const;
 	vector3D getBodyVelocity(identifier body) const;

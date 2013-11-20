@@ -21,7 +21,7 @@ identifier System::createBody(double mass, vector3D position, vector3D velocity)
 	return body;
 }
 
-identifier System::getNumberOfBodies() const {
+sizeT System::getNumberOfBodies() const {
 	return phase.numberOfBodies;
 }
 

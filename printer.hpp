@@ -49,7 +49,7 @@ public:
 	}
 
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
-		for (identifier i = 0; i < coordinates.size(); i++) {
+		for (sizeT i = 0; i < coordinates.size(); i++) {
 
 			switch (coordinates[i]) {
 			case Coord::x:

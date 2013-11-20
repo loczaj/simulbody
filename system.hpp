@@ -21,7 +21,7 @@ public:
 
 	identifier createBody(double mass);
 	identifier createBody(double mass, vector3D position, vector3D velocity);
-	identifier getNumberOfBodies() const;
+	sizeT getNumberOfBodies() const;
 
 	double getBodyMass(identifier body) const;
 	double getBodyKineticEnergy(identifier body) const;
