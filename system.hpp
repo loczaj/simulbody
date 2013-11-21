@@ -37,13 +37,13 @@ public:
 	vector3D getBodyImpulse(identifier body) const;
 	vector3D getBodyAngularMomentum(identifier body, identifier reference) const;
 
-	vector3D getCenterOfMass(std::vector<identifier> bodies) const;
-	vector3D getImpulse(std::vector<identifier> bodies) const;
-	double getMass(std::vector<identifier> bodies) const;
-
 	void setBodyMass(identifier body, double mass);
 	void setBodyPosition(identifier body, vector3D position);
 	void setBodyVelocity(identifier body, vector3D velocity);
+
+	vector3D getGroupCenterOfMass(std::vector<identifier> bodyGroup) const;
+	vector3D getGroupImpulse(std::vector<identifier> bodyGroup) const;
+	double getGroupMass(std::vector<identifier> bodyGroup) const;
 
 	double getSystemMass() const;
 	double getSystemEnergy() const;

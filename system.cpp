@@ -94,34 +94,6 @@ vector3D System::getBodyAngularMomentum(identifier body, identifier reference) c
 	return r.vectorProduct(v) * getBodyMass(body);
 }
 
-vector3D System::getCenterOfMass(std::vector<identifier> bodies) const {
-	vector3D centerOfMass;
-	double mass = 0.0;
-	for (identifier body : bodies) {
-		centerOfMass += getBodyPosition(body) * getBodyMass(body);
-		mass += getBodyMass(body);
-	}
-
-	centerOfMass /= mass;
-	return centerOfMass;
-}
-
-vector3D System::getImpulse(std::vector<identifier> bodies) const {
-	vector3D impulse;
-	for (identifier body : bodies) {
-		impulse += getBodyImpulse(body);
-	}
-	return impulse;
-}
-
-double System::getMass(std::vector<identifier> bodies) const {
-	double mass = 0.0;
-	for (identifier body : bodies) {
-		mass += getBodyMass(body);
-	}
-	return mass;
-}
-
 void System::setBodyMass(identifier body, double mass) {
 	assert(body < masses.size());
 	masses[body] = mass;
@@ -135,8 +107,36 @@ void System::setBodyVelocity(identifier body, vector3D velocity) {
 	phase.setBodyVelocity(body, velocity);
 }
 
+vector3D System::getGroupCenterOfMass(std::vector<identifier> bodyGroup) const {
+	vector3D centerOfMass;
+	double mass = 0.0;
+	for (identifier body : bodyGroup) {
+		centerOfMass += getBodyPosition(body) * getBodyMass(body);
+		mass += getBodyMass(body);
+	}
+
+	centerOfMass /= mass;
+	return centerOfMass;
+}
+
+vector3D System::getGroupImpulse(std::vector<identifier> bodyGroup) const {
+	vector3D impulse;
+	for (identifier body : bodyGroup) {
+		impulse += getBodyImpulse(body);
+	}
+	return impulse;
+}
+
+double System::getGroupMass(std::vector<identifier> bodyGroup) const {
+	double mass = 0.0;
+	for (identifier body : bodyGroup) {
+		mass += getBodyMass(body);
+	}
+	return mass;
+}
+
 double System::getSystemMass() const {
-	return getMass(getBodies());
+	return getGroupMass(getBodies());
 }
 
 double System::getSystemEnergy() const {
@@ -152,11 +152,11 @@ double System::getSystemEnergy() const {
 }
 
 vector3D System::getSystemCenterOfMass() const {
-	return getCenterOfMass(getBodies());
+	return getGroupCenterOfMass(getBodies());
 }
 
 vector3D System::getSystemImpulse() const {
-	return getImpulse(getBodies());
+	return getGroupImpulse(getBodies());
 }
 
 std::pair<vector3D, vector3D> System::convertToCenterOfMassSystem() {
