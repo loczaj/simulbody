@@ -108,6 +108,24 @@ struct vector3D {
 		return sqrt(x * x + y * y + z * z);
 	}
 
+	vector3D eulerRotation(double phi, double theta, double eta) const {
+		vector3D result;
+
+		result.x = x * (-sin(phi) * sin(eta) + cos(phi) * cos(theta) * cos(eta));
+		result.x += y * (-sin(phi) * cos(eta) - cos(phi) * cos(theta) * sin(eta));
+		result.x += z * (cos(phi) * sin(theta));
+
+		result.y = x * (cos(phi) * sin(eta) + sin(phi) * cos(theta) * cos(eta));
+		result.y += y * (cos(phi) * cos(eta) - sin(phi) * cos(theta) * sin(eta));
+		result.y += z * (sin(phi) * sin(theta));
+
+		result.z = x * (-sin(theta) * cos(eta));
+		result.z += y * (sin(theta) * sin(eta));
+		result.z += z * (cos(theta));
+
+		return result;
+	}
+
 };
 
 inline std::ostream& operator<<(std::ostream &out, const vector3D &v) {
