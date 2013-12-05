@@ -12,12 +12,8 @@ struct vector3D {
 			: x(0.0), y(0.0), z(0.0) {
 	}
 
-	vector3D(double xyz)
-			: x(xyz), y(xyz), z(xyz) {
-	}
-
-	vector3D(double vx, double vy, double vz)
-			: x(vx), y(vy), z(vz) {
+	vector3D(double x, double y, double z)
+			: x(x), y(y), z(z) {
 	}
 
 	vector3D& operator+=(const vector3D &term) {
