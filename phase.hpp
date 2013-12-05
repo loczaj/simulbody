@@ -50,6 +50,15 @@ public:
 };
 } /* NAMESPACE SIMULBODY */
 
+inline std::ostream& operator<<(std::ostream &out, const simulbody::Phase &p) {
+	for (simulbody::sizeT i = 0; i < p.size(); i++) {
+		out << p.at(i);
+		if (i < p.size() - 1)
+			out << "\t";
+	}
+	return out;
+}
+
 // Phase bindings
 namespace boost {
 namespace numeric {
