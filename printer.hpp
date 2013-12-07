@@ -79,6 +79,21 @@ public:
 	}
 };
 
+// *** PositionPrintField ***
+class PositionPrintField: public PrintField {
+public:
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		for (identifier body = 0; body < phase.getNumberOfBodies(); body++) {
+
+			vector3D r = phase.getBodyPosition(body);
+			stream << r.x << "\t" << r.y << "\t" << r.z;
+
+			if (body < phase.getNumberOfBodies() - 1)
+				stream << "\t";
+		}
+	}
+};
+
 // *** TimePrintField ***
 class TimePrintField: public PrintField {
 public:

@@ -21,6 +21,10 @@ void Phase::resize(sizeT size) {
 	forces.resize(numberOfBodies * 3);
 }
 
+sizeT Phase::getNumberOfBodies() const {
+	return numberOfBodies;
+}
+
 identifier Phase::createBody() {
 	assert(size() % 6 == 0);
 	int id = numberOfBodies++;

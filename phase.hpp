@@ -40,6 +40,7 @@ public:
 	Phase();
 	Phase(sizeT size);
 	void resize(sizeT size);
+	sizeT getNumberOfBodies() const;
 
 	vector3D getBodyPosition(identifier body) const;
 	vector3D getBodyVelocity(identifier body) const;
