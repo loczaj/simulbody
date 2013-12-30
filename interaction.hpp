@@ -9,12 +9,11 @@ class Interaction {
 
 	friend class System;
 
-private:
+protected:
 
+	// bodies
 	identifier earth;
 	identifier moon;
-
-protected:
 
 	// variables for calculation
 	vector3D r;
