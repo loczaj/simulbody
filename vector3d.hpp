@@ -122,6 +122,10 @@ struct vector3D {
 		return result;
 	}
 
+	vector3D convertFromSphericalToCartesian() {
+		return vector3D(x * sin(y) * cos(z), x * sin(y) * sin(z), x * cos(y));
+	}
+
 };
 
 inline std::ostream& operator<<(std::ostream &out, const vector3D &v) {
