@@ -18,16 +18,16 @@ public:
 		this->setBodies(earth, moon);
 	}
 
-	virtual void apply(const Phase &phase, const double t) override {
+	virtual void apply(const Phase &x, Phase &dxdt, const double t) override {
 
-		calculateR(phase);
+		calculateR(x);
 
 		factor = -gammaM1M2 / pow(r.abs(), 3);
 		F = r;
 		F *= factor;
 
-		applyFOnMoon(phase);
-		applyFOnEarth(phase);
+		applyFOnMoon(dxdt);
+		applyFOnEarth(dxdt);
 	}
 
 	virtual double getEnergy(const Phase &phase) override {

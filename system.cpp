@@ -179,16 +179,13 @@ void System::addInteraction(Interaction *interaction) {
 void System::derive(const Phase &x, Phase &dxdt, const double t) const {
 
 	Phase::copyVelocitiesToPositions(x, dxdt);
-
-	x.clearForces();
+	Phase::clearVelocities(dxdt);
 
 	for (Interaction* interaction : interactions) {
-		interaction->apply(x, t);
+		interaction->apply(x, dxdt, t);
 	}
 
-	Phase::devideForcesByMass(x, masses);
-
-	Phase::copyForcesToVelocities(x, dxdt);
+	Phase::devideVelocities(dxdt, masses);
 }
 
 System& System::operator<<(Interaction *interaction) {

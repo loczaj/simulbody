@@ -18,7 +18,6 @@ void Phase::resize(sizeT size) {
 	numberOfBodies = size / 6;
 
 	std::vector<double>::resize(size);
-	forces.resize(numberOfBodies * 3);
 }
 
 sizeT Phase::getNumberOfBodies() const {
@@ -30,7 +29,6 @@ identifier Phase::createBody() {
 	int id = numberOfBodies++;
 
 	std::vector<double>::resize(6 * (id + 1));
-	forces.resize(3 * (id + 1));
 
 	return id;
 }
@@ -61,16 +59,29 @@ void Phase::setBodyVelocity(identifier body, const vector3D velocity) {
 	at(6 * body + Coord::vz) = velocity.z;
 }
 
-void Phase::clearForces() const {
-	std::fill(forces.begin(), forces.end(), 0.0);
-}
-
-void Phase::addForceOnBody(identifier body, const vector3D &force) const {
+void Phase::addForceOnBodyInDifferentialPhase(identifier body, const vector3D &force) {
 	assert(body < numberOfBodies);
 
-	forces[3 * body + Coord::x] += force.x;
-	forces[3 * body + Coord::y] += force.y;
-	forces[3 * body + Coord::z] += force.z;
+	operator[](6 * body + Coord::vx) += force.x;
+	operator[](6 * body + Coord::vy) += force.y;
+	operator[](6 * body + Coord::vz) += force.z;
+}
+
+void Phase::addVelocityOnBodyInDifferentialPhase(identifier body, const vector3D &velocity) {
+	assert(body < numberOfBodies);
+
+	operator[](6 * body + Coord::x) += velocity.x;
+	operator[](6 * body + Coord::y) += velocity.y;
+	operator[](6 * body + Coord::z) += velocity.z;
+}
+
+// static
+void Phase::clearVelocities(Phase &x) {
+	for (identifier body = 0; body < x.numberOfBodies; body++) {
+		x[6 * body + Coord::vx] = 0.0;
+		x[6 * body + Coord::vy] = 0.0;
+		x[6 * body + Coord::vz] = 0.0;
+	}
 }
 
 // static
@@ -83,20 +94,11 @@ void Phase::copyVelocitiesToPositions(const Phase &x, Phase &dxdt) {
 }
 
 // static
-void Phase::copyForcesToVelocities(const Phase &x, Phase &dxdt) {
+void Phase::devideVelocities(Phase &x, const std::vector<double> &divisors) {
 	for (identifier body = 0; body < x.numberOfBodies; body++) {
-		dxdt[6 * body + Coord::vx] = x.forces[3 * body + Coord::x];
-		dxdt[6 * body + Coord::vy] = x.forces[3 * body + Coord::y];
-		dxdt[6 * body + Coord::vz] = x.forces[3 * body + Coord::z];
-	}
-}
-
-// static
-void Phase::devideForcesByMass(const Phase &x, const std::vector<double> &masses) {
-	for (identifier body = 0; body < x.numberOfBodies; body++) {
-		x.forces[3 * body + Coord::x] /= masses[body];
-		x.forces[3 * body + Coord::y] /= masses[body];
-		x.forces[3 * body + Coord::z] /= masses[body];
+		x[6 * body + Coord::vx] /= divisors[body];
+		x[6 * body + Coord::vy] /= divisors[body];
+		x[6 * body + Coord::vz] /= divisors[body];
 	}
 }
 

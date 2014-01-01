@@ -24,14 +24,14 @@ protected:
 	void calculateR(const Phase &phase);
 	void calculateV(const Phase &phase);
 
-	void applyFOnMoon(const Phase &phase);
-	void applyFOnEarth(const Phase &phase);
+	void applyFOnMoon(Phase &dxdt);
+	void applyFOnEarth(Phase &dxdt);
 
 public:
 
 	virtual void setBodies(identifier earth, identifier moon);
 
-	virtual void apply(const Phase &phase, const double t) = 0;
+	virtual void apply(const Phase &x, Phase &dxdt, const double t) = 0;
 
 	virtual double getEnergy(const Phase &phase) = 0;
 

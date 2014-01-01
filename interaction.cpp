@@ -9,22 +9,22 @@ void Interaction::setBodies(identifier earth, identifier moon) {
 	this->moon = moon;
 }
 
-void Interaction::calculateR(const Phase &phase) {
-	r = phase.getBodyPosition(moon);
-	r -= phase.getBodyPosition(earth);
+void Interaction::calculateR(const Phase &x) {
+	r = x.getBodyPosition(moon);
+	r -= x.getBodyPosition(earth);
 }
 
-void Interaction::calculateV(const Phase &phase) {
-	v = phase.getBodyVelocity(moon);
-	v -= phase.getBodyVelocity(earth);
+void Interaction::calculateV(const Phase &x) {
+	v = x.getBodyVelocity(moon);
+	v -= x.getBodyVelocity(earth);
 }
 
-void Interaction::applyFOnMoon(const Phase &phase) {
-	phase.addForceOnBody(moon, F);
+void Interaction::applyFOnMoon(Phase &dxdt) {
+	dxdt.addForceOnBodyInDifferentialPhase(moon, F);
 }
 
-void Interaction::applyFOnEarth(const Phase &phase) {
-	phase.addForceOnBody(earth, -F);
+void Interaction::applyFOnEarth(Phase &dxdt) {
+	dxdt.addForceOnBodyInDifferentialPhase(earth, -F);
 }
 
 Interaction::~Interaction() {

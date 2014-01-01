@@ -24,16 +24,15 @@ class Phase: public std::vector<double> {
 private:
 
 	sizeT numberOfBodies;
-	mutable std::vector<double> forces;
 
 	identifier createBody();
 
-	void clearForces() const;
-	void addForceOnBody(identifier body, const vector3D &force) const;
+	void addForceOnBodyInDifferentialPhase(identifier body, const vector3D &force);
+	void addVelocityOnBodyInDifferentialPhase(identifier body, const vector3D &velocity);
 
+	static void clearVelocities(Phase &x);
 	static void copyVelocitiesToPositions(const Phase &x, Phase &dxdt);
-	static void copyForcesToVelocities(const Phase &x, Phase &dxdt);
-	static void devideForcesByMass(const Phase &x, const std::vector<double> &masses);
+	static void devideVelocities(Phase &x, const std::vector<double> &divisors);
 
 public:
 
