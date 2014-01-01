@@ -1,10 +1,11 @@
 #ifndef PRINTER_HPP
 #define PRINTER_HPP
 
-#include <iostream>
 #include <fstream>
-#include <vector>
+#include <boost/function.hpp>
 #include <initializer_list>
+#include <iostream>
+#include <vector>
 
 #include "phase.hpp"
 #include "condition.hpp"
@@ -147,6 +148,20 @@ public:
 
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
 		stream << interaction->getEnergy(phase);
+	}
+};
+
+// *** CustomPrintField ***
+class CustomPrintField: public PrintField {
+	boost::function<void(const Phase, const double, std::ostream&)> writer;
+
+public:
+	CustomPrintField(boost::function<void(const Phase, const double, std::ostream&)> writer)
+			: writer(writer) {
+	}
+
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		writer(phase, time, stream);
 	}
 };
 
