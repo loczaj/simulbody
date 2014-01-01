@@ -20,18 +20,18 @@ public:
 
 	virtual void apply(const Phase &x, Phase &dxdt, const double t) override {
 
-		calculateR(x);
+		calculateRelativePositionR(x);
 
 		factor = -gammaM1M2 / pow(r.abs(), 3);
 		F = r;
 		F *= factor;
 
-		applyFOnMoon(dxdt);
-		applyFOnEarth(dxdt);
+		applyForceOnMoon(dxdt, F);
+		applyForceOnEarth(dxdt, -F);
 	}
 
 	virtual double getEnergy(const Phase &phase) override {
-		calculateR(phase);
+		calculateRelativePositionR(phase);
 		return -gammaM1M2 / r.abs();
 	}
 

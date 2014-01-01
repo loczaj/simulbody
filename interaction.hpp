@@ -21,11 +21,14 @@ protected:
 	vector3D F;
 
 	// methods for calculation
-	void calculateR(const Phase &phase);
-	void calculateV(const Phase &phase);
+	void calculateRelativePositionR(const Phase &phase);
+	void calculateRelativeVelocityV(const Phase &phase);
 
-	void applyFOnMoon(Phase &dxdt);
-	void applyFOnEarth(Phase &dxdt);
+	void applyForceOnMoon(Phase &dxdt, const vector3D &force);
+	void applyForceOnEarth(Phase &dxdt, const vector3D &force);
+
+	void addCollateralVelocityOnMoon(Phase &dxdt, const vector3D &velocity);
+	void addCollateralVelocityOnEarth(Phase &dxdt, const vector3D &velocity);
 
 public:
 
