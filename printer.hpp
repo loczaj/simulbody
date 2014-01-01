@@ -8,6 +8,7 @@
 
 #include "phase.hpp"
 #include "condition.hpp"
+#include "interaction.hpp"
 
 namespace simulbody {
 
@@ -132,6 +133,20 @@ public:
 		} else {
 			stream << "0";
 		}
+	}
+};
+
+// *** InteractionPrintField ***
+class InteractionPrintField: public PrintField {
+	Interaction* interaction;
+
+public:
+	InteractionPrintField(Interaction* interaction)
+			: interaction(interaction) {
+	}
+
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
+		stream << interaction->getEnergy(phase);
 	}
 };
 
