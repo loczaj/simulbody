@@ -8,6 +8,7 @@ namespace simulbody {
 class Interaction {
 
 	friend class System;
+	friend class InteractionPrintField;
 
 protected:
 
@@ -19,6 +20,7 @@ protected:
 	vector3D r;
 	vector3D v;
 	vector3D F;
+	vector3D vcoll;
 
 	// methods for calculation
 	void calculateRelativePositionR(const Phase &phase);

@@ -138,16 +138,37 @@ public:
 };
 
 // *** InteractionPrintField ***
+enum class InteractionAttribute {
+	relativePosition, relativeVelocity, energy, force, collateralVelocity
+};
+
 class InteractionPrintField: public PrintField {
 	Interaction* interaction;
+	InteractionAttribute attribute;
 
 public:
-	InteractionPrintField(Interaction* interaction)
-			: interaction(interaction) {
+	InteractionPrintField(Interaction* interaction, InteractionAttribute attribute)
+			: interaction(interaction), attribute(attribute) {
 	}
 
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
-		stream << interaction->getEnergy(phase);
+		switch (attribute) {
+		case InteractionAttribute::relativePosition:
+			stream << interaction->r;
+			break;
+		case InteractionAttribute::relativeVelocity:
+			stream << interaction->v;
+			break;
+		case InteractionAttribute::energy:
+			stream << interaction->getEnergy(phase);
+			break;
+		case InteractionAttribute::force:
+			stream << interaction->F;
+			break;
+		case InteractionAttribute::collateralVelocity:
+			stream << interaction->vcoll;
+			break;
+		}
 	}
 };
 
