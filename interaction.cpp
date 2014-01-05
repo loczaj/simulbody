@@ -9,6 +9,12 @@ void Interaction::setBodies(identifier earth, identifier moon) {
 	this->moon = moon;
 }
 
+void Interaction::setBodyMasses(double earthMass, double moonMass) {
+	this->earthMass = earthMass;
+	this->moonMass = moonMass;
+	this->reducedMass = earthMass * moonMass / (earthMass + moonMass);
+}
+
 void Interaction::calculateRelativePositionR(const Phase &x) {
 	r = x.getBodyPosition(moon);
 	r -= x.getBodyPosition(earth);

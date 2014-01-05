@@ -173,6 +173,7 @@ std::pair<vector3D, vector3D> System::convertToCenterOfMassSystem() {
 }
 
 void System::addInteraction(Interaction *interaction) {
+	interaction->setBodyMasses(getBodyMass(interaction->earth), getBodyMass(interaction->moon));
 	interactions.push_back(interaction);
 }
 

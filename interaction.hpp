@@ -16,6 +16,11 @@ protected:
 	identifier earth;
 	identifier moon;
 
+	// masses
+	double earthMass;
+	double moonMass;
+	double reducedMass;
+
 	// variables for calculation
 	vector3D r;
 	vector3D v;
@@ -32,11 +37,12 @@ protected:
 	void addCollateralVelocityOnMoon(Phase &dxdt, const vector3D &velocity);
 	void addCollateralVelocityOnEarth(Phase &dxdt, const vector3D &velocity);
 
-public:
-
 	virtual void setBodies(identifier earth, identifier moon);
+	virtual void setBodyMasses(double earthMass, double moonMass);
 
 	virtual void apply(const Phase &x, Phase &dxdt, const double t) = 0;
+
+public:
 
 	virtual double getEnergy(const Phase &phase) = 0;
 
