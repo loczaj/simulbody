@@ -22,20 +22,20 @@ protected:
 	double reducedMass;
 
 	// variables for calculation
-	vector3D r;
-	vector3D v;
-	vector3D F;
-	vector3D vcoll;
+	vector3D relativePosition;
+	vector3D relativeVelocity;
+	vector3D actingForce;
+	vector3D actingVelocity;
 
 	// methods for calculation
-	void calculateRelativePositionR(const Phase &phase);
-	void calculateRelativeVelocityV(const Phase &phase);
+	void calculateRelativePosition(const Phase &phase);
+	void calculateRelativeVelocity(const Phase &phase);
 
 	void applyForceOnMoon(Phase &dxdt, const vector3D &force);
 	void applyForceOnEarth(Phase &dxdt, const vector3D &force);
 
-	void addCollateralVelocityOnMoon(Phase &dxdt, const vector3D &velocity);
-	void addCollateralVelocityOnEarth(Phase &dxdt, const vector3D &velocity);
+	void addVelocityOnMoon(Phase &dxdt, const vector3D &velocity);
+	void addVelocityOnEarth(Phase &dxdt, const vector3D &velocity);
 
 	virtual void setBodies(identifier earth, identifier moon);
 	virtual void setBodyMasses(double earthMass, double moonMass);

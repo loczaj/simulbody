@@ -139,7 +139,7 @@ public:
 
 // *** InteractionPrintField ***
 enum class InteractionAttribute {
-	relativePosition, relativeVelocity, energy, force, collateralVelocity
+	relativePosition, relativeVelocity, energy, actingForce, actingVelocity
 };
 
 class InteractionPrintField: public PrintField {
@@ -154,19 +154,19 @@ public:
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override {
 		switch (attribute) {
 		case InteractionAttribute::relativePosition:
-			stream << interaction->r;
+			stream << interaction->relativePosition;
 			break;
 		case InteractionAttribute::relativeVelocity:
-			stream << interaction->v;
+			stream << interaction->relativeVelocity;
 			break;
 		case InteractionAttribute::energy:
 			stream << interaction->getEnergy(phase);
 			break;
-		case InteractionAttribute::force:
-			stream << interaction->F;
+		case InteractionAttribute::actingForce:
+			stream << interaction->actingForce;
 			break;
-		case InteractionAttribute::collateralVelocity:
-			stream << interaction->vcoll;
+		case InteractionAttribute::actingVelocity:
+			stream << interaction->actingVelocity;
 			break;
 		}
 	}

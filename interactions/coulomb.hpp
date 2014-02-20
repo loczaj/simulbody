@@ -20,19 +20,19 @@ public:
 
 	virtual void apply(const Phase &x, Phase &dxdt, const double t) override {
 
-		calculateRelativePositionR(x);
+		calculateRelativePosition(x);
 
-		factor = q1q2 / pow(r.abs(), 3);
-		F = r;
-		F *= factor;
+		factor = q1q2 / pow(relativePosition.abs(), 3);
+		actingForce = relativePosition;
+		actingForce *= factor;
 
-		applyForceOnMoon(dxdt, F);
-		applyForceOnEarth(dxdt, -F);
+		applyForceOnMoon(dxdt, actingForce);
+		applyForceOnEarth(dxdt, -actingForce);
 	}
 
 	virtual double getEnergy(const Phase &phase) override {
-		calculateRelativePositionR(phase);
-		return q1q2 / r.abs();
+		calculateRelativePosition(phase);
+		return q1q2 / relativePosition.abs();
 	}
 
 	virtual ~CoulombInteraction() override {

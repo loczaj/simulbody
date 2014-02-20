@@ -15,14 +15,14 @@ void Interaction::setBodyMasses(double earthMass, double moonMass) {
 	this->reducedMass = earthMass * moonMass / (earthMass + moonMass);
 }
 
-void Interaction::calculateRelativePositionR(const Phase &x) {
-	r = x.getBodyPosition(moon);
-	r -= x.getBodyPosition(earth);
+void Interaction::calculateRelativePosition(const Phase &x) {
+	relativePosition = x.getBodyPosition(moon);
+	relativePosition -= x.getBodyPosition(earth);
 }
 
-void Interaction::calculateRelativeVelocityV(const Phase &x) {
-	v = x.getBodyVelocity(moon);
-	v -= x.getBodyVelocity(earth);
+void Interaction::calculateRelativeVelocity(const Phase &x) {
+	relativeVelocity = x.getBodyVelocity(moon);
+	relativeVelocity -= x.getBodyVelocity(earth);
 }
 
 void Interaction::applyForceOnMoon(Phase &dxdt, const vector3D &force) {
@@ -33,11 +33,11 @@ void Interaction::applyForceOnEarth(Phase &dxdt, const vector3D &force) {
 	dxdt.addForceOnBodyInDifferentialPhase(earth, force);
 }
 
-void Interaction::addCollateralVelocityOnMoon(Phase &dxdt, const vector3D &velocity) {
+void Interaction::addVelocityOnMoon(Phase &dxdt, const vector3D &velocity) {
 	dxdt.addVelocityOnBodyInDifferentialPhase(moon, velocity);
 }
 
-void Interaction::addCollateralVelocityOnEarth(Phase &dxdt, const vector3D &velocity) {
+void Interaction::addVelocityOnEarth(Phase &dxdt, const vector3D &velocity) {
 	dxdt.addVelocityOnBodyInDifferentialPhase(earth, velocity);
 }
 
