@@ -25,6 +25,11 @@ void Interaction::calculateRelativeVelocity(const Phase &x) {
 	relativeVelocity -= x.getBodyVelocity(earth);
 }
 
+double Interaction::getDistance(const Phase &phase) {
+	calculateRelativePosition(phase);
+	return relativePosition.abs();
+}
+
 void Interaction::applyForceOnMoon(Phase &dxdt, const vector3D &force) {
 	dxdt.addForceOnBodyInDifferentialPhase(moon, force);
 }

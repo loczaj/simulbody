@@ -45,6 +45,7 @@ protected:
 public:
 
 	virtual double getEnergy(const Phase &phase) = 0;
+	virtual double getDistance(const Phase &phase);
 
 	virtual ~Interaction();
 };
