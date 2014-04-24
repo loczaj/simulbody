@@ -47,7 +47,7 @@ int main(int argc, char* atgv[]) {
 	runge_kutta4_classic<Phase> stepper;
 	//auto cstepper = make_controlled(1e-20, 1e-20, stepper);
 	Simulator<decltype(stepper)> simulator(stepper, &bbsystem);
-	simulator.setPrinter(print);
+	simulator.setObserver(print);
 
 	double stopTime = simulator.simulate(0.0, 1.0, 0.001, condMI);
 

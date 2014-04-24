@@ -29,8 +29,8 @@ public:
 			: stepper(stepper), bbsystem(sys) {
 	}
 
-	void setPrinter(const Printer &printer) {
-		this->observer = printer;
+	void setObserver(const boost::function<void(const Phase&, const double&)> &observer) {
+		this->observer = observer;
 	}
 
 	void operator()(const Phase &x, Phase &dxdt, const double t) {
