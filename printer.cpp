@@ -154,4 +154,8 @@ void CustomPrintField::writeField(const Phase &phase, const double &time, std::o
 	writer(phase, time, stream);
 }
 
+// *** EmptyPrintField ***
+void EmptyPrintField::writeField(const Phase &phase, const double &time, std::ostream &stream) {
+}
+
 } /* NAMESPACE SIMULBODY */

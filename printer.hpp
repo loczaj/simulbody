@@ -94,6 +94,12 @@ public:
 	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
 };
 
+class EmptyPrintField: public PrintField {
+
+public:
+	virtual void writeField(const Phase &phase, const double &time, std::ostream &stream) override;
+};
+
 } /* NAMESPACE SIMULBODY */
 
 #endif /* PRINTER_HPP */
