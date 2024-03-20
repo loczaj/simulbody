@@ -1,6 +1,7 @@
 #ifndef VECTOR3D_HPP
 #define VECTOR3D_HPP
 
+#include <math.h>
 #include <ostream>
 
 namespace simulbody {
