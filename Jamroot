@@ -1,17 +1,17 @@
 lib simulbody
     : phase.cpp interaction.cpp system.cpp printer.cpp
     : <define>BOOST_ALL_NO_LIB=1
-    : <cxxflags>-std=c++2b
+    : <cxxflags>-std=c++20
     ;
-    
+
 exe revolution
     : test/revolution.cpp .//simulbody
     : <define>BOOST_ALL_NO_LIB=1
-    : <cxxflags>-std=c++2b
+    : <cxxflags>-std=c++20
     ;
 
 exe hydrogen
     : test/hydrogen.cpp .//simulbody
     : <define>BOOST_ALL_NO_LIB=1
-    : <cxxflags>-std=c++2b
+    : <cxxflags>-std=c++20
     ;
