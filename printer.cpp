@@ -85,8 +85,7 @@ void BodyPrintField::writeField(const Phase &phase, const double &time, std::ost
 void PositionPrintField::writeField(const Phase &phase, const double &time, std::ostream &stream) {
 	for (identifier body = 0; body < phase.getNumberOfBodies(); body++) {
 
-		vector3D r = phase.getBodyPosition(body);
-		stream << r.x << "\t" << r.y << "\t" << r.z;
+		stream << phase.getBodyPosition(body);
 
 		if (body < phase.getNumberOfBodies() - 1)
 			stream << "\t";
